@@ -30,14 +30,21 @@
             -webkit-tap-highlight-color: transparent;
         }
         
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        
         body {
             background: var(--bg-gradient);
-            min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             padding: 20px;
             transition: var(--transition);
+            min-height: 100vh;
         }
         
         .app-container {
@@ -47,9 +54,8 @@
             border-radius: 25px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
             overflow: hidden;
-            animation: fadeIn 0.5s ease;
-            position: relative;
             transition: var(--transition);
+            min-height: 100%;
         }
         
         @keyframes fadeIn {
@@ -153,7 +159,6 @@
             padding: 20px;
             position: relative;
             background: #f9fafc;
-            min-height: 400px;
         }
         
         .card {
@@ -169,7 +174,7 @@
         }
         
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) translateZ(0);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
         
@@ -208,7 +213,7 @@
         }
         
         .btn:hover {
-            transform: translateY(-3px);
+            transform: translateY(-3px) translateZ(0);
             box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4);
         }
         
@@ -236,7 +241,6 @@
             box-shadow: none;
         }
         
-        /* Scratch Card Styles */
         .scratch-container {
             position: relative;
             width: 100%;
@@ -246,6 +250,8 @@
             overflow: hidden;
             background: #f0f2f5;
             border: 2px dashed rgba(108, 92, 231, 0.3);
+            will-change: transform;
+            transform: translateZ(0);
         }
         
         .scratch-prize {
@@ -285,7 +291,6 @@
             color: var(--dark);
         }
         
-        /* UPI Form Styles */
         .upi-form {
             display: none;
             margin-top: 20px;
@@ -347,7 +352,7 @@
         }
         
         .upi-app:hover {
-            transform: translateY(-3px);
+            transform: translateY(-3px) translateZ(0);
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
         
@@ -366,7 +371,6 @@
             -webkit-user-drag: none;
         }
         
-        /* Referral Styles */
         .referral-stats {
             display: flex;
             justify-content: space-between;
@@ -376,39 +380,45 @@
         
         .stat-card {
             background: var(--light);
-            padding: 15px;
+            padding: 12px;
             border-radius: 10px;
             text-align: center;
             flex: 1;
+            transition: var(--transition);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-3px) translateZ(0);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         .stat-value {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
             color: var(--primary);
         }
         
         .stat-label {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--dark);
             opacity: 0.8;
         }
         
         .referral-id-container {
             background: var(--light);
-            padding: 15px;
+            padding: 12px;
             border-radius: 10px;
             text-align: center;
-            margin-top: 20px;
+            margin: 15px 0;
             position: relative;
         }
         
         .referral-id {
             font-weight: 600;
-            font-size: 18px;
+            font-size: 16px;
             letter-spacing: 1px;
             background: white;
-            padding: 10px;
+            padding: 8px 12px;
             border-radius: 8px;
             display: inline-block;
             margin-top: 5px;
@@ -416,13 +426,14 @@
         
         .copy-btn {
             position: absolute;
-            right: 15px;
-            top: 15px;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
             background: var(--primary);
             color: white;
             border: none;
-            width: 30px;
-            height: 30px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -432,10 +443,29 @@
         }
         
         .copy-btn:hover {
-            transform: scale(1.1);
+            transform: translateY(-50%) scale(1.1);
         }
         
-        /* Withdrawal History */
+        .referral-share-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            font-size: 16px;
+            padding: 14px 20px;
+        }
+        
+        .referral-history-container {
+            margin-top: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .referral-history-container h4 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
         .withdrawal-item {
             display: flex;
             justify-content: space-between;
@@ -481,7 +511,6 @@
             color: var(--error);
         }
         
-        /* Notification */
         .notification {
             display: none;
             align-items: center;
@@ -536,7 +565,6 @@
             opacity: 0.8;
         }
         
-        /* Daily Bonus */
         .daily-bonus-container {
             display: flex;
             justify-content: space-between;
@@ -577,7 +605,6 @@
             color: var(--success);
         }
         
-        /* Dark Mode */
         .dark-mode-toggle {
             position: absolute;
             top: 20px;
@@ -663,20 +690,76 @@
             color: white;
         }
         
-        /* Responsive */
         @media (max-width: 480px) {
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            
             .app-container {
                 border-radius: 0;
                 max-width: 100%;
-                height: 100vh;
+                min-height: 100vh;
             }
             
             .app-content {
-                min-height: calc(100vh - 200px);
+                padding: 10px;
+            }
+            
+            .user-balance {
+                font-size: 28px;
+            }
+            
+            .card-title {
+                font-size: 16px;
+            }
+            
+            .tab {
+                font-size: 13px;
+                padding: 10px;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+            
+            .scratch-container {
+                height: 120px;
+            }
+            
+            .stat-card {
+                padding: 8px;
+            }
+            
+            .stat-value {
+                font-size: 18px;
+            }
+            
+            .stat-label {
+                font-size: 10px;
+            }
+            
+            .referral-id {
+                font-size: 14px;
+                padding: 6px 10px;
+            }
+            
+            .copy-btn {
+                width: 24px;
+                height: 24px;
+            }
+            
+            .referral-share-btn {
+                font-size: 14px;
+                padding: 12px 16px;
+            }
+            
+            .referral-history-container {
+                max-height: 150px;
             }
         }
         
-        /* Loading Spinner */
         .spinner {
             display: inline-block;
             width: 20px;
@@ -692,7 +775,6 @@
             to { transform: rotate(360deg); }
         }
         
-        /* GST Warning */
         .gst-warning {
             color: var(--error);
             font-size: 12px;
@@ -701,7 +783,6 @@
             font-weight: 500;
         }
         
-        /* Empty State */
         .empty-state {
             text-align: center;
             padding: 20px;
@@ -732,7 +813,6 @@
         </div>
         
         <div class="app-content">
-            <!-- Earn Tab Content -->
             <div id="earn-content">
                 <div class="notification" id="notification">
                     <div class="notification-icon" id="notification-icon"><i class="fas fa-check"></i></div>
@@ -742,11 +822,9 @@
                     </div>
                 </div>
                 
-                <!-- Scratch Card -->
                 <div class="card">
                     <h3 class="card-title"><i class="fas fa-ticket-alt"></i> Scratch & Win</h3>
                     <p>Scratch the card to win ₹2 instantly!</p>
-                    
                     <div class="scratch-container">
                         <div class="scratch-card">
                             <div class="scratch-prize">
@@ -756,48 +834,37 @@
                             <canvas class="scratch-overlay" id="scratch-canvas"></canvas>
                         </div>
                     </div>
-                    
                     <div class="scratch-count">
                         <span id="scratch-count">1</span> scratch card left (₹2 each)
                     </div>
-                    
                     <button class="btn btn-secondary" id="get-more-scratches"><i class="fas fa-user-plus"></i> Invite Friends to Get More</button>
                 </div>
                 
-                <!-- Daily Bonus -->
                 <div class="card">
                     <h3 class="card-title"><i class="fas fa-calendar-check"></i> Daily Bonus</h3>
                     <p>Claim your daily bonus to earn more!</p>
-                    <div class="daily-bonus-container" id="daily-bonus">
-                        <!-- Filled by JavaScript -->
-                    </div>
+                    <div class="daily-bonus-container" id="daily-bonus"></div>
                 </div>
             </div>
             
-            <!-- Withdraw Tab Content -->
             <div id="withdraw-content" style="display: none;">
                 <div class="card">
                     <h3 class="card-title"><i class="fas fa-university"></i> Withdraw Funds</h3>
                     <p>Transfer your earnings to your UPI account (20% GST applies)</p>
-                    
                     <button class="btn" id="withdraw-btn"><i class="fas fa-wallet"></i> Withdraw ₹<span id="withdraw-amount">50</span></button>
-                    
                     <div class="upi-form" id="upi-form">
                         <div class="form-group">
                             <label for="upi-id"><i class="fas fa-id-card"></i> UPI ID</label>
                             <input type="text" id="upi-id" placeholder="yourname@upi" autocomplete="off">
                         </div>
-                        
                         <div class="form-group">
                             <label for="amount"><i class="fas fa-rupee-sign"></i> Amount (₹)</label>
                             <input type="number" id="amount" min="10" max="50" value="50">
                             <div class="gst-warning">* 20% GST will be deducted (₹10 will be ₹8 after tax)</div>
                         </div>
-                        
                         <p style="text-align: center; margin: 15px 0; color: #636E72; font-size: 14px;">
                             <i class="fas fa-mobile-alt"></i> Select your UPI app
                         </p>
-                        
                         <div class="upi-apps">
                             <div class="upi-app" data-upi="googlepay">
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Google_Pay_%28GPay%29_Logo.svg/512px-Google_Pay_%28GPay%29_Logo.svg.png" alt="Google Pay">
@@ -812,7 +879,6 @@
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/BHIM_Logo.svg/1200px-BHIM_Logo.svg.png" alt="BHIM">
                             </div>
                         </div>
-                        
                         <button class="btn" id="confirm-withdraw"><i class="fas fa-paper-plane"></i> Confirm Withdrawal</button>
                     </div>
                 </div>
@@ -828,37 +894,32 @@
                 </div>
             </div>
             
-            <!-- Referrals Tab Content -->
             <div id="referrals-content" style="display: none;">
                 <div class="card">
                     <h3 class="card-title"><i class="fas fa-users"></i> Refer & Earn</h3>
                     <p>Invite friends and earn 1 scratch card (₹2 value) per referral</p>
-                    
                     <div class="referral-stats">
-                        <div class="stat-card">
+                        <div class="stat-card" title="Total friends joined">
                             <div class="stat-value" id="total-referrals">0</div>
                             <div class="stat-label">Total Referrals</div>
                         </div>
-                        <div class="stat-card">
+                        <div class="stat-card" title="Earnings from referrals">
                             <div class="stat-value" id="earned-from-ref">₹0</div>
                             <div class="stat-label">Earned</div>
                         </div>
-                        <div class="stat-card">
+                        <div class="stat-card" title="Pending earnings">
                             <div class="stat-value" id="pending-earnings">₹0</div>
                             <div class="stat-label">Pending</div>
                         </div>
                     </div>
-                    
                     <div class="referral-id-container">
                         <div>Your Referral ID</div>
                         <div class="referral-id" id="referral-code">FX5476104653</div>
-                        <button class="copy-btn" id="copy-btn"><i class="fas fa-copy"></i></button>
+                        <button class="copy-btn" id="copy-btn" title="Copy Referral ID"><i class="fas fa-copy"></i></button>
                     </div>
-                    
-                    <button class="btn" id="share-referral-btn"><i class="fas fa-share-alt"></i> Share Referral Link</button>
-                    
-                    <div style="margin-top: 20px;">
-                        <h4 style="font-size: 16px; margin-bottom: 10px;"><i class="fas fa-list"></i> Referral History</h4>
+                    <button class="btn referral-share-btn" id="share-referral-btn"><i class="fas fa-share-alt"></i> Share Referral Link</button>
+                    <div class="referral-history-container">
+                        <h4><i class="fas fa-list"></i> Referral History</h4>
                         <div id="referral-history">
                             <div class="empty-state">
                                 <i class="fas fa-user-friends"></i>
@@ -872,19 +933,9 @@
     </div>
 
     <script>
-        // ===== CONFIGURATION ===== //
         const CONFIG = {
             BOT_TOKEN: "YOUR_BOT_TOKEN",
-            CHANNELS: [
-                {
-                    id: 1,
-                    username: "EarnAppOfficial",
-                    name: "EarnApp Official",
-                    photo: "https://via.placeholder.com/150/6C5CE7/FFFFFF?text=EA",
-                    members: "12K+ members",
-                    inviteLink: "https://t.me/EarnAppOfficial"
-                }
-            ],
+            CHANNELS: [{ id: 1, username: "EarnAppOfficial", name: "EarnApp Official", photo: "https://via.placeholder.com/150/6C5CE7/FFFFFF?text=EA", members: "12K+ members", inviteLink: "https://t.me/EarnAppOfficial" }],
             GST_RATE: 0.2,
             SCRATCH_CARD_VALUE: 2,
             MIN_WITHDRAWAL: 10,
@@ -898,7 +949,6 @@
             ]
         };
 
-        // ===== STATE MANAGEMENT ===== //
         const state = {
             balance: CONFIG.INITIAL_BALANCE,
             scratchCards: 1,
@@ -916,27 +966,19 @@
             isDarkMode: false
         };
 
-        // ===== DOM ELEMENTS ===== //
         const elements = {
-            // Tabs
             earnTab: document.getElementById('earn-tab'),
             withdrawTab: document.getElementById('withdraw-tab'),
             referralsTab: document.getElementById('referrals-tab'),
             earnContent: document.getElementById('earn-content'),
             withdrawContent: document.getElementById('withdraw-content'),
             referralsContent: document.getElementById('referrals-content'),
-            
-            // Balance
             balanceAmount: document.getElementById('balance-amount'),
             minWithdrawal: document.getElementById('min-withdrawal'),
-            
-            // Scratch Card
             scratchCanvas: document.getElementById('scratch-canvas'),
             prizeAmount: document.getElementById('prize-amount'),
             scratchCount: document.getElementById('scratch-count'),
             getMoreScratches: document.getElementById('get-more-scratches'),
-            
-            // Withdrawal
             withdrawBtn: document.getElementById('withdraw-btn'),
             withdrawAmount: document.getElementById('withdraw-amount'),
             upiForm: document.getElementById('upi-form'),
@@ -944,8 +986,6 @@
             amount: document.getElementById('amount'),
             confirmWithdraw: document.getElementById('confirm-withdraw'),
             withdrawalHistory: document.getElementById('withdrawal-history'),
-            
-            // Referrals
             referralBadge: document.getElementById('referral-badge'),
             referralCode: document.getElementById('referral-code'),
             copyBtn: document.getElementById('copy-btn'),
@@ -954,148 +994,88 @@
             earnedFromRef: document.getElementById('earned-from-ref'),
             pendingEarnings: document.getElementById('pending-earnings'),
             referralHistory: document.getElementById('referral-history'),
-            
-            // Daily Bonus
             dailyBonusContainer: document.getElementById('daily-bonus'),
-            
-            // Notification
             notification: document.getElementById('notification'),
             notificationIcon: document.getElementById('notification-icon'),
             notificationTitle: document.getElementById('notification-title'),
             notificationText: document.getElementById('notification-text'),
-            
-            // Dark Mode
             darkModeToggle: document.getElementById('darkModeToggle'),
-            
-            // UPI Apps
             upiApps: document.querySelectorAll('.upi-app')
         };
 
-        // ===== UTILITY FUNCTIONS ===== //
         const utils = {
             showNotification: (type, title, message, duration = 5000) => {
-                // Set notification content
                 elements.notificationTitle.textContent = title;
                 elements.notificationText.textContent = message;
-                
-                // Set icon and color based on type
                 let icon = 'fa-info-circle';
                 elements.notificationIcon.className = 'notification-icon';
-                
                 switch(type.toLowerCase()) {
-                    case 'success':
-                        icon = 'fa-check-circle';
-                        elements.notificationIcon.classList.add('notification-success');
-                        break;
-                    case 'error':
-                        icon = 'fa-times-circle';
-                        elements.notificationIcon.classList.add('notification-error');
-                        break;
-                    case 'warning':
-                        icon = 'fa-exclamation-triangle';
-                        elements.notificationIcon.classList.add('notification-warning');
-                        break;
-                    case 'info':
-                        icon = 'fa-info-circle';
-                        elements.notificationIcon.classList.add('notification-info');
-                        break;
+                    case 'success': icon = 'fa-check-circle'; elements.notificationIcon.classList.add('notification-success'); break;
+                    case 'error': icon = 'fa-times-circle'; elements.notificationIcon.classList.add('notification-error'); break;
+                    case 'warning': icon = 'fa-exclamation-triangle'; elements.notificationIcon.classList.add('notification-warning'); break;
+                    case 'info': icon = 'fa-info-circle'; elements.notificationIcon.classList.add('notification-info'); break;
                 }
-                
                 elements.notificationIcon.innerHTML = `<i class="fas ${icon}"></i>`;
-                
-                // Show notification
                 elements.notification.style.display = 'flex';
-                
-                // Hide after duration
-                setTimeout(() => {
-                    elements.notification.style.display = 'none';
-                }, duration);
+                setTimeout(() => elements.notification.style.display = 'none', duration);
             },
-            
-            validateUpiId: (upiId) => {
-                const upiRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]+$/;
-                return upiRegex.test(upiId);
-            },
-            
+            validateUpiId: (upiId) => /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]+$/.test(upiId),
             copyToClipboard: (text) => {
                 return new Promise((resolve, reject) => {
-                    if (navigator.clipboard) {
-                        navigator.clipboard.writeText(text).then(resolve).catch(reject);
+                    if (navigator.clipboard && navigator.permissions) {
+                        navigator.clipboard.writeText(text).then(resolve).catch(() => {
+                            const textarea = document.createElement('textarea');
+                            textarea.value = text;
+                            document.body.appendChild(textarea);
+                            textarea.select();
+                            document.execCommand('copy');
+                            document.body.removeChild(textarea);
+                            resolve();
+                        });
                     } else {
-                        // Fallback for older browsers
                         const textarea = document.createElement('textarea');
                         textarea.value = text;
-                        textarea.style.position = 'fixed';  // Prevent scrolling to bottom
                         document.body.appendChild(textarea);
                         textarea.select();
-                        
-                        try {
-                            const successful = document.execCommand('copy');
-                            document.body.removeChild(textarea);
-                            successful ? resolve() : reject();
-                        } catch (err) {
-                            document.body.removeChild(textarea);
-                            reject(err);
-                        }
+                        document.execCommand('copy');
+                        document.body.removeChild(textarea);
+                        resolve();
                     }
                 });
             },
-            
             generateReferralCode: (userId) => {
                 const timestamp = Date.now().toString(36).slice(-4).toUpperCase();
                 const randomStr = Math.random().toString(36).substr(2, 5).toUpperCase();
                 return `REF${timestamp}${randomStr}`;
             },
-            
-            isInTelegramApp: () => {
-                return window.navigator.userAgent.includes('Telegram') || 
-                       window.TelegramWebViewProxy !== undefined ||
-                       (window.Telegram && Telegram.WebApp);
-            },
-            
-            formatCurrency: (amount) => {
-                return `₹${amount.toFixed(2)}`;
-            }
+            isInTelegramApp: () => window.navigator.userAgent.includes('Telegram') || window.TelegramWebViewProxy !== undefined || (window.Telegram && Telegram.WebApp),
+            formatCurrency: (amount) => `₹${amount.toFixed(2)}`
         };
 
-        // ===== CORE FUNCTIONALITY ===== //
         const app = {
             init: () => {
-                // Initialize state from localStorage if available
                 app.loadState();
-                
-                // Set up event listeners
                 app.setupEventListeners();
-                
-                // Initialize components
                 app.initScratchCard();
                 app.renderDailyBonuses();
-                
-                // Render initial state
                 app.render();
-                
-                // Check if in Telegram app
                 if (window.Telegram?.WebApp) {
                     Telegram.WebApp.expand();
                     Telegram.WebApp.enableClosingConfirmation();
-                    
-                    // Generate unique referral code based on Telegram user ID
                     const userId = Telegram.WebApp.initDataUnsafe?.user?.id;
                     if (userId) {
                         state.referralCode = utils.generateReferralCode(userId);
                         app.render();
                     }
                 }
+                window.scrollTo(0, 1);
             },
-            
             loadState: () => {
                 try {
                     const savedState = localStorage.getItem('earnAppState');
                     if (savedState) {
                         const parsedState = JSON.parse(savedState);
                         Object.assign(state, parsedState);
-                        
-                        // Check if dark mode was enabled
                         if (state.isDarkMode) {
                             document.body.classList.add('dark-mode');
                             const icon = elements.darkModeToggle.querySelector('i');
@@ -1106,7 +1086,6 @@
                     console.error('Failed to load state:', e);
                 }
             },
-            
             saveState: () => {
                 try {
                     localStorage.setItem('earnAppState', JSON.stringify(state));
@@ -1114,25 +1093,22 @@
                     console.error('Failed to save state:', e);
                 }
             },
-            
             setupEventListeners: () => {
-                // Tab switching
-                elements.earnTab.addEventListener('click', () => app.switchTab('earn'));
-                elements.withdrawTab.addEventListener('click', () => app.switchTab('withdraw'));
-                elements.referralsTab.addEventListener('click', () => app.switchTab('referrals'));
-                
-                // Withdraw button - shows UPI form
+                elements.earnTab.addEventListener('click', () => { console.log('Earn tab clicked'); app.switchTab('earn'); });
+                elements.withdrawTab.addEventListener('click', () => { console.log('Withdraw tab clicked'); app.switchTab('withdraw'); });
+                elements.referralsTab.addEventListener('click', () => { console.log('Referrals tab clicked'); app.switchTab('referrals'); });
                 elements.withdrawBtn.addEventListener('click', () => {
+                    console.log('Withdraw button clicked');
                     elements.upiForm.style.display = 'block';
                     elements.withdrawBtn.style.display = 'none';
                     elements.upiId.focus();
                 });
-                
-                // Confirm withdrawal
-                elements.confirmWithdraw.addEventListener('click', app.processWithdrawal);
-                
-                // Get more scratches button
+                elements.confirmWithdraw.addEventListener('click', () => {
+                    console.log('Confirm withdrawal clicked');
+                    app.processWithdrawal();
+                });
                 elements.getMoreScratches.addEventListener('click', () => {
+                    console.log('Get more scratches clicked');
                     if (utils.isInTelegramApp()) {
                         app.showChannelJoinModal();
                     } else {
@@ -1140,84 +1116,63 @@
                         utils.showNotification('info', 'Refer Friends', 'Invite friends to get more scratch cards!');
                     }
                 });
-                
-                // Copy referral code
-                elements.copyBtn.addEventListener('click', app.copyReferralCode);
-                
-                // Share referral link
-                elements.shareReferralBtn.addEventListener('click', app.shareReferralLink);
-                
-                // Amount input validation
+                elements.copyBtn.addEventListener('click', () => {
+                    console.log('Copy button clicked');
+                    app.copyReferralCode();
+                });
+                elements.shareReferralBtn.addEventListener('click', () => {
+                    console.log('Share referral clicked');
+                    app.shareReferralLink();
+                });
                 elements.amount.addEventListener('input', () => {
                     const maxAmount = state.balance;
                     const inputAmount = parseInt(elements.amount.value);
-                    
-                    if (isNaN(inputAmount)) {
-                        elements.amount.value = state.minWithdrawal;
-                        return;
-                    }
-                    
-                    if (inputAmount > maxAmount) {
-                        elements.amount.value = maxAmount;
-                    }
-                    
-                    if (inputAmount < state.minWithdrawal) {
-                        elements.amount.value = state.minWithdrawal;
-                    }
+                    if (isNaN(inputAmount)) elements.amount.value = state.minWithdrawal;
+                    else if (inputAmount > maxAmount) elements.amount.value = maxAmount;
+                    else if (inputAmount < state.minWithdrawal) elements.amount.value = state.minWithdrawal;
                 });
-                
-                // Daily bonus click
                 elements.dailyBonusContainer.addEventListener('click', (e) => {
                     const bonusDay = e.target.closest('.bonus-day');
                     if (!bonusDay) return;
-                    
                     const dayIndex = Array.from(elements.dailyBonusContainer.children).indexOf(bonusDay);
+                    console.log('Daily bonus clicked, day:', dayIndex);
                     app.claimDailyBonus(dayIndex);
                 });
-                
-                // Dark mode toggle
-                elements.darkModeToggle.addEventListener('click', app.toggleDarkMode);
-                
-                // UPI app selection
-                elements.upiApps.forEach(appEl => {
-                    appEl.addEventListener('click', () => app.selectUpiApp(appEl));
+                elements.darkModeToggle.addEventListener('click', () => {
+                    console.log('Dark mode toggle clicked');
+                    app.toggleDarkMode();
                 });
+                elements.upiApps.forEach(appEl => appEl.addEventListener('click', () => {
+                    console.log('UPI app clicked:', appEl.dataset.upi);
+                    app.selectUpiApp(appEl);
+                }));
+                if (!utils.isInTelegramApp()) {
+                    elements.shareReferralBtn.addEventListener('click', () => {
+                        console.log('Share referral (non-Telegram) clicked');
+                        const shareText = `Join me on EarnApp! Use my referral code ${state.referralCode} to get a bonus: https://example.com?ref=${state.referralCode}`;
+                        utils.copyToClipboard(shareText);
+                        utils.showNotification('success', 'Link Copied!', 'Share this link with your friends!');
+                    });
+                }
             },
-            
             render: () => {
-                // Update balance display
                 elements.balanceAmount.textContent = state.balance;
                 elements.withdrawAmount.textContent = state.balance;
                 elements.minWithdrawal.textContent = state.minWithdrawal;
-                
-                // Set amount field to current balance (but not less than min)
                 elements.amount.value = Math.max(state.balance, state.minWithdrawal);
                 elements.amount.max = state.balance;
-                
-                // Disable withdraw button if balance is less than minimum
                 elements.withdrawBtn.disabled = state.balance < state.minWithdrawal;
-                
-                // Update scratch card count
                 elements.scratchCount.textContent = state.scratchCards;
                 elements.prizeAmount.textContent = utils.formatCurrency(CONFIG.SCRATCH_CARD_VALUE);
-                
-                // Update referral stats
                 elements.totalReferrals.textContent = state.totalReferrals;
                 elements.earnedFromRef.textContent = utils.formatCurrency(state.earnedFromReferrals);
                 elements.pendingEarnings.textContent = utils.formatCurrency(state.pendingReferrals);
                 elements.referralCode.textContent = state.referralCode;
                 elements.referralBadge.textContent = state.totalReferrals;
-                
-                // Render withdrawal history
                 app.renderWithdrawalHistory();
-                
-                // Render referral history
                 app.renderReferralHistory();
-                
-                // Save state
                 app.saveState();
             },
-            
             renderDailyBonuses: () => {
                 let html = '';
                 state.dailyBonuses.forEach((bonus, index) => {
@@ -1233,7 +1188,6 @@
                 });
                 elements.dailyBonusContainer.innerHTML = html;
             },
-            
             renderWithdrawalHistory: () => {
                 if (state.withdrawals.length === 0) {
                     elements.withdrawalHistory.innerHTML = `
@@ -1244,20 +1198,11 @@
                     `;
                     return;
                 }
-                
                 let html = '';
                 state.withdrawals.forEach(withdrawal => {
-                    let statusClass = 'status-processing';
-                    let statusIcon = 'fa-clock';
-                    
-                    if (withdrawal.status === 'Success') {
-                        statusClass = 'status-success';
-                        statusIcon = 'fa-check-circle';
-                    } else if (withdrawal.status === 'Failed') {
-                        statusClass = 'status-failed';
-                        statusIcon = 'fa-times-circle';
-                    }
-                    
+                    let statusClass = 'status-processing', statusIcon = 'fa-clock';
+                    if (withdrawal.status === 'Success') { statusClass = 'status-success'; statusIcon = 'fa-check-circle'; }
+                    else if (withdrawal.status === 'Failed') { statusClass = 'status-failed'; statusIcon = 'fa-times-circle'; }
                     html += `
                         <div class="withdrawal-item">
                             <div class="withdrawal-details">
@@ -1270,10 +1215,8 @@
                         </div>
                     `;
                 });
-                
                 elements.withdrawalHistory.innerHTML = html;
             },
-            
             renderReferralHistory: () => {
                 if (state.referrals.length === 0) {
                     elements.referralHistory.innerHTML = `
@@ -1284,19 +1227,10 @@
                     `;
                     return;
                 }
-                
                 let html = '';
                 state.referrals.forEach(referral => {
-                    let statusClass = 'status-processing';
-                    let statusIcon = 'fa-clock';
-                    let statusText = 'Pending';
-                    
-                    if (referral.status === 'Completed') {
-                        statusClass = 'status-success';
-                        statusIcon = 'fa-check-circle';
-                        statusText = 'Completed';
-                    }
-                    
+                    let statusClass = 'status-processing', statusIcon = 'fa-clock', statusText = 'Pending';
+                    if (referral.status === 'Completed') { statusClass = 'status-success'; statusIcon = 'fa-check-circle'; statusText = 'Completed'; }
                     html += `
                         <div class="withdrawal-item">
                             <div class="withdrawal-details">
@@ -1309,22 +1243,15 @@
                         </div>
                     `;
                 });
-                
                 elements.referralHistory.innerHTML = html;
             },
-            
             switchTab: (tab) => {
-                // Reset all tabs
                 elements.earnTab.classList.remove('active');
                 elements.withdrawTab.classList.remove('active');
                 elements.referralsTab.classList.remove('active');
-                
-                // Hide all content
                 elements.earnContent.style.display = 'none';
                 elements.withdrawContent.style.display = 'none';
                 elements.referralsContent.style.display = 'none';
-                
-                // Activate selected tab
                 if (tab === 'earn') {
                     elements.earnTab.classList.add('active');
                     elements.earnContent.style.display = 'block';
@@ -1336,39 +1263,25 @@
                     elements.referralsContent.style.display = 'block';
                 }
             },
-            
             initScratchCard: () => {
                 const canvas = elements.scratchCanvas;
                 const container = canvas.parentElement.parentElement;
-                
-                // Set canvas size
                 canvas.width = container.offsetWidth;
                 canvas.height = container.offsetHeight;
-                
                 const ctx = canvas.getContext('2d');
-                
-                // Fill with scratch-off material
                 ctx.fillStyle = state.isDarkMode ? '#444' : '#333';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 ctx.globalCompositeOperation = 'destination-out';
-                
-                // Scratch events
-                let isDrawing = false;
-                let lastX = 0;
-                let lastY = 0;
-                
+                let isDrawing = false, lastX = 0, lastY = 0;
                 const startScratch = (e) => {
                     if (state.scratchCards <= 0) return;
-                    
                     isDrawing = true;
                     const pos = app.getScratchPosition(e);
                     lastX = pos.x;
                     lastY = pos.y;
                 };
-                
                 const scratch = (e) => {
                     if (!isDrawing || state.scratchCards <= 0) return;
-                    
                     const pos = app.getScratchPosition(e);
                     ctx.beginPath();
                     ctx.moveTo(lastX, lastY);
@@ -1378,37 +1291,30 @@
                     ctx.lineCap = 'round';
                     ctx.lineJoin = 'round';
                     ctx.stroke();
-                    
                     lastX = pos.x;
                     lastY = pos.y;
-                    
-                    // Check if enough is scratched
                     app.checkScratchedArea();
                 };
-                
                 const stopScratch = () => {
                     isDrawing = false;
                 };
-                
-                // Add event listeners
                 canvas.addEventListener('mousedown', startScratch);
                 canvas.addEventListener('mousemove', scratch);
                 canvas.addEventListener('mouseup', stopScratch);
                 canvas.addEventListener('mouseout', stopScratch);
-                
                 canvas.addEventListener('touchstart', (e) => {
                     e.preventDefault();
-                    startScratch(e);
-                });
-                
+                    startScratch(e.touches[0]);
+                }, { passive: false });
                 canvas.addEventListener('touchmove', (e) => {
                     e.preventDefault();
-                    scratch(e);
-                });
-                
-                canvas.addEventListener('touchend', stopScratch);
+                    scratch(e.touches[0]);
+                }, { passive: false });
+                canvas.addEventListener('touchend', (e) => {
+                    e.preventDefault();
+                    stopScratch();
+                }, { passive: false });
             },
-            
             getScratchPosition: (e) => {
                 const rect = elements.scratchCanvas.getBoundingClientRect();
                 return {
@@ -1416,142 +1322,80 @@
                     y: (e.clientY || e.touches[0].clientY) - rect.top
                 };
             },
-            
             checkScratchedArea: () => {
                 const canvas = elements.scratchCanvas;
                 const ctx = canvas.getContext('2d');
-                
-                // Get pixel data
                 const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
                 const pixels = imageData.data;
                 let transparentPixels = 0;
-                
-                // Count transparent pixels
                 for (let i = 0; i < pixels.length; i += 4) {
-                    if (pixels[i+3] === 0) {
-                        transparentPixels++;
-                    }
+                    if (pixels[i+3] === 0) transparentPixels++;
                 }
-                
-                // Calculate percentage scratched
                 const percentScratched = transparentPixels / (pixels.length / 4);
-                
-                // If more than 50% scratched, reveal prize
-                if (percentScratched > 0.5 && state.scratchCards > 0) {
-                    app.revealPrize();
-                }
+                if (percentScratched > 0.5 && state.scratchCards > 0) app.revealPrize();
             },
-            
             revealPrize: () => {
                 state.scratchCards--;
-                
-                // Fixed ₹2 prize per scratch card
                 const prize = CONFIG.SCRATCH_CARD_VALUE;
                 state.balance += prize;
-                
-                // Show prize
                 elements.prizeAmount.textContent = utils.formatCurrency(prize);
-                
-                // Update UI
                 app.render();
-                
-                // Show notification
                 utils.showNotification('success', 'Congratulations!', `You won ${utils.formatCurrency(prize)} from scratch card!`);
-                
-                // Disable further scratching
                 elements.scratchCanvas.style.pointerEvents = 'none';
-                
-                // Reset scratch card after delay
-                setTimeout(() => {
-                    app.resetScratchCard();
-                }, 3000);
+                setTimeout(() => app.resetScratchCard(), 3000);
             },
-            
             resetScratchCard: () => {
                 const canvas = elements.scratchCanvas;
                 const ctx = canvas.getContext('2d');
-                
-                // Clear canvas
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.fillStyle = state.isDarkMode ? '#444' : '#333';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
-                
-                // Reset UI
                 elements.prizeAmount.textContent = utils.formatCurrency(CONFIG.SCRATCH_CARD_VALUE);
                 elements.scratchCanvas.style.pointerEvents = 'auto';
             },
-            
             claimDailyBonus: (dayIndex) => {
                 const bonus = state.dailyBonuses[dayIndex];
-                
-                // Check if bonus can be claimed
                 if (bonus.claimed) {
                     utils.showNotification('info', 'Already Claimed', `You've already claimed Day ${bonus.day} bonus`);
                     return;
                 }
-                
-                // Check if it's the next bonus in sequence
                 if (dayIndex !== state.currentDay) {
                     utils.showNotification('warning', 'Not Available', `Please claim Day ${state.currentDay + 1} bonus first`);
                     return;
                 }
-                
-                // Claim bonus
                 bonus.claimed = true;
                 state.balance += bonus.amount;
                 state.currentDay++;
-                
-                // Update UI
                 app.renderDailyBonuses();
                 app.render();
-                
-                // Show notification
                 utils.showNotification('success', 'Bonus Claimed!', `You received ${utils.formatCurrency(bonus.amount)} for Day ${bonus.day}`);
             },
-            
             selectUpiApp: (appEl) => {
-                // Remove active class from all apps
                 elements.upiApps.forEach(el => el.classList.remove('active'));
-                
-                // Add active class to selected app
                 appEl.classList.add('active');
                 state.selectedUpiApp = appEl.dataset.upi;
-                
                 utils.showNotification('success', 'App Selected', `${appEl.dataset.upi.toUpperCase()} selected for payment`);
             },
-            
             processWithdrawal: async () => {
                 const upiId = elements.upiId.value.trim();
                 const amount = parseInt(elements.amount.value);
-                
-                // Validate UPI ID
                 if (!utils.validateUpiId(upiId)) {
                     utils.showNotification('error', 'Invalid UPI ID', 'Please enter a valid UPI ID (e.g. yourname@upi)');
                     return;
                 }
-                
-                // Validate amount
                 if (isNaN(amount) || amount < state.minWithdrawal || amount > state.balance) {
                     utils.showNotification('error', 'Invalid Amount', `Please enter amount between ${utils.formatCurrency(state.minWithdrawal)} and ${utils.formatCurrency(state.balance)}`);
                     return;
                 }
-                
-                // Validate UPI app selection
                 if (!state.selectedUpiApp) {
                     utils.showNotification('error', 'No UPI App Selected', 'Please select your UPI app first');
                     return;
                 }
-                
-                // Calculate GST deduction
                 const gstDeduction = Math.floor(amount * CONFIG.GST_RATE);
                 const netAmount = amount - gstDeduction;
-                
-                // Show loading state
                 const originalText = elements.confirmWithdraw.innerHTML;
                 elements.confirmWithdraw.innerHTML = `<span class="spinner"></span> Processing...`;
                 elements.confirmWithdraw.disabled = true;
-                
-                // Process withdrawal
                 const withdrawalId = 'W' + Math.floor(Math.random() * 1000000);
                 const newWithdrawal = {
                     id: withdrawalId,
@@ -1563,49 +1407,31 @@
                     status: 'Processing',
                     upiApp: state.selectedUpiApp
                 };
-                
-                // Add to withdrawals
                 state.withdrawals.unshift(newWithdrawal);
-                
-                // Update balance
                 state.balance -= amount;
-                
-                // Reset form
                 elements.upiForm.style.display = 'none';
                 elements.withdrawBtn.style.display = 'block';
                 elements.upiId.value = '';
                 elements.upiApps.forEach(el => el.classList.remove('active'));
                 state.selectedUpiApp = null;
-                
-                // Update UI
                 app.render();
-                
-                // Show GST notification
                 utils.showNotification('info', 'GST Applied', `${utils.formatCurrency(gstDeduction)} deducted (20%) from your withdrawal`);
-                
-                // Simulate payment processing
                 setTimeout(() => {
-                    // Randomly determine if successful (80% chance)
                     const isSuccess = Math.random() > 0.2;
                     const withdrawal = state.withdrawals.find(w => w.id === withdrawalId);
-                    
                     if (isSuccess) {
                         withdrawal.status = 'Success';
                         utils.showNotification('success', 'Withdrawal Successful', `${utils.formatCurrency(netAmount)} has been transferred to your UPI`);
                     } else {
                         withdrawal.status = 'Failed';
-                        state.balance += amount; // Refund if failed
+                        state.balance += amount;
                         utils.showNotification('error', 'Withdrawal Failed', 'Please try again or use different UPI ID');
                     }
-                    
-                    // Reset button
                     elements.confirmWithdraw.innerHTML = originalText;
                     elements.confirmWithdraw.disabled = false;
-                    
                     app.render();
                 }, 3000);
             },
-            
             copyReferralCode: async () => {
                 try {
                     await utils.copyToClipboard(state.referralCode);
@@ -1615,13 +1441,11 @@
                     utils.showNotification('error', 'Error', 'Failed to copy referral code');
                 }
             },
-            
             shareReferralLink: () => {
                 if (utils.isInTelegramApp()) {
                     const userId = window.Telegram?.WebApp?.initDataUnsafe?.user?.id || 'user_' + Date.now();
                     const refCode = utils.generateReferralCode(userId);
                     const shareText = `Join me on EarnApp! Use my referral code ${refCode} to get a bonus: https://t.me/your_bot?start=ref_${refCode}`;
-                    
                     if (window.Telegram?.WebApp?.shareText) {
                         Telegram.WebApp.shareText(shareText);
                     } else {
@@ -1629,36 +1453,31 @@
                         utils.showNotification('success', 'Link Copied!', 'Referral link copied to clipboard');
                     }
                 } else {
-                    app.copyReferralCode();
+                    const shareText = `Join me on EarnApp! Use my referral code ${state.referralCode} to get a bonus: https://example.com?ref=${state.referralCode}`;
+                    utils.copyToClipboard(shareText);
+                    utils.showNotification('success', 'Link Copied!', 'Share this link with your friends!');
                 }
             },
-            
             toggleDarkMode: () => {
                 state.isDarkMode = !state.isDarkMode;
                 document.body.classList.toggle('dark-mode', state.isDarkMode);
-                
                 const icon = elements.darkModeToggle.querySelector('i');
-                if (state.isDarkMode) {
-                    icon.classList.replace('fa-moon', 'fa-sun');
-                } else {
-                    icon.classList.replace('fa-sun', 'fa-moon');
-                }
-                
-                // Reinitialize scratch card with correct color
+                if (state.isDarkMode) icon.classList.replace('fa-moon', 'fa-sun');
+                else icon.classList.replace('fa-sun', 'fa-moon');
                 app.resetScratchCard();
-                
-                // Save state
                 app.saveState();
             },
-            
             showChannelJoinModal: () => {
-                // Implementation would go here for Telegram channel joining
                 utils.showNotification('info', 'Telegram Channels', 'Join our Telegram channels to earn more rewards!');
             }
         };
 
-        // Initialize the app
         document.addEventListener('DOMContentLoaded', app.init);
+        window.addEventListener('load', () => {
+            document.documentElement.style.height = '100%';
+            document.body.style.height = '100%';
+            window.scrollTo(0, 1);
+        });
     </script>
 </body>
 </html>
