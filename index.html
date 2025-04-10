@@ -30,32 +30,26 @@
             -webkit-tap-highlight-color: transparent;
         }
         
-        html, body {
-            height: 100%;
-            width: 100%;
-            overflow-x: hidden;
-            overflow-y: auto;
-        }
-        
         body {
             background: var(--bg-gradient);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: center;
             padding: 20px;
             transition: var(--transition);
-            min-height: 100vh;
         }
         
         .app-container {
             width: 100%;
-            max-width: 640px;
+            max-width: 420px;
             background: white;
             border-radius: 25px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
             overflow: hidden;
+            animation: fadeIn 0.5s ease;
+            position: relative;
             transition: var(--transition);
-            min-height: 100%;
         }
         
         @keyframes fadeIn {
@@ -159,6 +153,7 @@
             padding: 20px;
             position: relative;
             background: #f9fafc;
+            min-height: 400px;
         }
         
         .card {
@@ -174,7 +169,7 @@
         }
         
         .card:hover {
-            transform: translateY(-5px) translateZ(0);
+            transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
         
@@ -213,7 +208,7 @@
         }
         
         .btn:hover {
-            transform: translateY(-3px) translateZ(0);
+            transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4);
         }
         
@@ -241,6 +236,7 @@
             box-shadow: none;
         }
         
+        /* Scratch Card Styles */
         .scratch-container {
             position: relative;
             width: 100%;
@@ -250,8 +246,6 @@
             overflow: hidden;
             background: #f0f2f5;
             border: 2px dashed rgba(108, 92, 231, 0.3);
-            will-change: transform;
-            transform: translateZ(0);
         }
         
         .scratch-prize {
@@ -279,9 +273,15 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            background: #333;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABYSURBVFhH7dcxCoAwEENR739aP8HeiQdQJ8EEmWQTZJId8O6R7OzuzvM8n/O8vut63nVd1/U8z/P6rut63nVd1/U8z/P6rut63nVd1/U8z/P6rut63r8BDG4iF3g7XosAAAAASUVORK5CYII=') repeat, linear-gradient(45deg, #B0B0B0, #D0D0D0);
             cursor: grab;
             touch-action: none;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+        
+        .scratch-overlay.scratched {
+            opacity: 0;
         }
         
         .scratch-count {
@@ -291,6 +291,7 @@
             color: var(--dark);
         }
         
+        /* UPI Form Styles */
         .upi-form {
             display: none;
             margin-top: 20px;
@@ -352,7 +353,7 @@
         }
         
         .upi-app:hover {
-            transform: translateY(-3px) translateZ(0);
+            transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
         
@@ -371,6 +372,7 @@
             -webkit-user-drag: none;
         }
         
+        /* Referral Styles */
         .referral-stats {
             display: flex;
             justify-content: space-between;
@@ -380,45 +382,39 @@
         
         .stat-card {
             background: var(--light);
-            padding: 12px;
+            padding: 15px;
             border-radius: 10px;
             text-align: center;
             flex: 1;
-            transition: var(--transition);
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-3px) translateZ(0);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         .stat-value {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 700;
             color: var(--primary);
         }
         
         .stat-label {
-            font-size: 11px;
+            font-size: 12px;
             color: var(--dark);
             opacity: 0.8;
         }
         
         .referral-id-container {
             background: var(--light);
-            padding: 12px;
+            padding: 15px;
             border-radius: 10px;
             text-align: center;
-            margin: 15px 0;
+            margin-top: 20px;
             position: relative;
         }
         
         .referral-id {
             font-weight: 600;
-            font-size: 16px;
+            font-size: 18px;
             letter-spacing: 1px;
             background: white;
-            padding: 8px 12px;
+            padding: 10px;
             border-radius: 8px;
             display: inline-block;
             margin-top: 5px;
@@ -426,14 +422,13 @@
         
         .copy-btn {
             position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
+            right: 15px;
+            top: 15px;
             background: var(--primary);
             color: white;
             border: none;
-            width: 28px;
-            height: 28px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -443,29 +438,10 @@
         }
         
         .copy-btn:hover {
-            transform: translateY(-50%) scale(1.1);
+            transform: scale(1.1);
         }
         
-        .referral-share-btn {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            font-size: 16px;
-            padding: 14px 20px;
-        }
-        
-        .referral-history-container {
-            margin-top: 20px;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-        
-        .referral-history-container h4 {
-            font-size: 16px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
+        /* Withdrawal History */
         .withdrawal-item {
             display: flex;
             justify-content: space-between;
@@ -511,6 +487,7 @@
             color: var(--error);
         }
         
+        /* Notification */
         .notification {
             display: none;
             align-items: center;
@@ -565,6 +542,7 @@
             opacity: 0.8;
         }
         
+        /* Daily Bonus */
         .daily-bonus-container {
             display: flex;
             justify-content: space-between;
@@ -605,6 +583,7 @@
             color: var(--success);
         }
         
+        /* Dark Mode */
         .dark-mode-toggle {
             position: absolute;
             top: 20px;
@@ -662,7 +641,7 @@
         }
         
         body.dark-mode .scratch-overlay {
-            background: #444;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABYSURBVFhH7dcxCoAwEENR739aP8HeiQdQJ8EEmWQTZJId8O6R7OzuzvM8n/O8vut63nVd1/U8z/P6rut63nVd1/U8z/P6rut63nVd1/U8z/P6rut63r8BDG4iF3g7XosAAAAASUVORK5CYII=') repeat, linear-gradient(45deg, #444, #666);
         }
         
         body.dark-mode .form-group input {
@@ -690,76 +669,38 @@
             color: white;
         }
         
+        body.dark-mode .dark-mode-toggle {
+            background: #333;
+            color: #FFD700; /* Sun color in dark mode */
+        }
+        
+        body.dark-mode .scratch-container {
+            background: #333;
+            border-color: #555;
+        }
+        
+        body.dark-mode .scratch-prize {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+        }
+        
+        body.dark-mode .app-content {
+            background: #1E1E1E;
+        }
+        
+        /* Responsive */
         @media (max-width: 480px) {
-            body {
-                padding: 0;
-                margin: 0;
-            }
-            
             .app-container {
                 border-radius: 0;
                 max-width: 100%;
-                min-height: 100vh;
+                height: 100vh;
             }
             
             .app-content {
-                padding: 10px;
-            }
-            
-            .user-balance {
-                font-size: 28px;
-            }
-            
-            .card-title {
-                font-size: 16px;
-            }
-            
-            .tab {
-                font-size: 13px;
-                padding: 10px;
-            }
-            
-            .btn {
-                padding: 12px 20px;
-                font-size: 14px;
-            }
-            
-            .scratch-container {
-                height: 120px;
-            }
-            
-            .stat-card {
-                padding: 8px;
-            }
-            
-            .stat-value {
-                font-size: 18px;
-            }
-            
-            .stat-label {
-                font-size: 10px;
-            }
-            
-            .referral-id {
-                font-size: 14px;
-                padding: 6px 10px;
-            }
-            
-            .copy-btn {
-                width: 24px;
-                height: 24px;
-            }
-            
-            .referral-share-btn {
-                font-size: 14px;
-                padding: 12px 16px;
-            }
-            
-            .referral-history-container {
-                max-height: 150px;
+                min-height: calc(100vh - 200px);
             }
         }
         
+        /* Loading Spinner */
         .spinner {
             display: inline-block;
             width: 20px;
@@ -775,6 +716,7 @@
             to { transform: rotate(360deg); }
         }
         
+        /* GST Warning */
         .gst-warning {
             color: var(--error);
             font-size: 12px;
@@ -783,6 +725,7 @@
             font-weight: 500;
         }
         
+        /* Empty State */
         .empty-state {
             text-align: center;
             padding: 20px;
@@ -792,6 +735,498 @@
         .empty-state i {
             font-size: 24px;
             margin-bottom: 10px;
+        }
+
+        /* NEW STYLES FOR ADDED FEATURES */
+        
+        /* User Profile Section */
+        .profile-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: var(--light);
+            border-radius: 15px;
+            position: relative;
+        }
+        
+        .profile-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .profile-avatar:hover {
+            transform: scale(1.05);
+        }
+        
+        .profile-info {
+            flex: 1;
+        }
+        
+        .profile-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+        
+        .profile-level {
+            font-size: 12px;
+            color: var(--dark);
+            opacity: 0.8;
+        }
+        
+        .edit-profile-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+        }
+        
+        /* Badges Section */
+        .badges-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .badge {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .badge:hover {
+            transform: scale(1.1);
+        }
+        
+        .badge i {
+            font-size: 20px;
+            color: var(--primary);
+        }
+        
+        .badge.locked {
+            filter: grayscale(100%);
+            opacity: 0.5;
+        }
+        
+        .badge-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        
+        .badge:hover .badge-tooltip {
+            opacity: 1;
+            bottom: calc(100% + 5px);
+        }
+        
+        /* Badge Modal */
+        .badge-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+        
+        .badge-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .badge-modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            width: 90%;
+            max-width: 350px;
+            text-align: center;
+            position: relative;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+        
+        .badge-modal.active .badge-modal-content {
+            transform: translateY(0);
+        }
+        
+        .badge-modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .badge-modal-icon {
+            font-size: 50px;
+            margin: 15px 0;
+            color: var(--primary);
+        }
+        
+        .badge-modal-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .badge-modal-description {
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .badge-modal-criteria {
+            background: var(--light);
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+        
+        /* Social Sharing */
+        .social-share {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .share-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-3px);
+        }
+        
+        .share-whatsapp {
+            background: #25D366;
+        }
+        
+        .share-telegram {
+            background: #0088cc;
+        }
+        
+        .share-facebook {
+            background: #3b5998;
+        }
+        
+        .share-twitter {
+            background: #1DA1F2;
+        }
+        
+        /* Coming Soon Section */
+        .coming-soon {
+            text-align: center;
+            padding: 30px 20px;
+            background: var(--light);
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+        
+        .coming-soon-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .progress-container {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            width: 65%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+            animation: progress 2s ease-in-out infinite;
+        }
+        
+        @keyframes progress {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Admin Controls */
+        .admin-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+        
+        .admin-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--error);
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: var(--transition);
+        }
+        
+        .admin-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Edit Profile Modal */
+        .profile-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+        
+        .profile-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .profile-modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            width: 90%;
+            max-width: 350px;
+            position: relative;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+        
+        .profile-modal.active .profile-modal-content {
+            transform: translateY(0);
+        }
+        
+        .profile-modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .profile-modal-title {
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .profile-form-group {
+            margin-bottom: 15px;
+        }
+        
+        .profile-form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .profile-form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        .profile-form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        /* Admin Message Modal */
+        .admin-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .admin-modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            width: 90%;
+            max-width: 350px;
+            text-align: center;
+        }
+        
+        .admin-modal-icon {
+            font-size: 50px;
+            color: var(--error);
+            margin-bottom: 15px;
+        }
+        
+        .admin-modal-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .admin-modal-text {
+            margin-bottom: 20px;
+        }
+        
+        .admin-modal-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+        
+        /* Custom Popup Styles */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .popup {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            width: 90%;
+            max-width: 350px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: popupFadeIn 0.3s ease;
+        }
+        
+        body.dark-mode .popup {
+            background: #2D2D2D;
+            color: #FFFFFF;
+        }
+        
+        @keyframes popupFadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .popup h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .popup p {
+            font-size: 14px;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+        
+        body.dark-mode .popup p {
+            color: #CCCCCC;
+        }
+        
+        .popup .btn-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .popup .btn {
+            width: auto;
+            padding: 12px 20px;
+            margin-top: 0;
+        }
+        
+        .popup .btn-secondary {
+            background: #f0f2f5;
+            color: var(--dark);
+            border: none;
+        }
+        
+        body.dark-mode .popup .btn-secondary {
+            background: #444;
+            color: #FFFFFF;
         }
     </style>
 </head>
@@ -813,6 +1248,7 @@
         </div>
         
         <div class="app-content">
+            <!-- Earn Tab Content -->
             <div id="earn-content">
                 <div class="notification" id="notification">
                     <div class="notification-icon" id="notification-icon"><i class="fas fa-check"></i></div>
@@ -822,9 +1258,11 @@
                     </div>
                 </div>
                 
+                <!-- Scratch Card -->
                 <div class="card">
                     <h3 class="card-title"><i class="fas fa-ticket-alt"></i> Scratch & Win</h3>
                     <p>Scratch the card to win ₹2 instantly!</p>
+                    
                     <div class="scratch-container">
                         <div class="scratch-card">
                             <div class="scratch-prize">
@@ -834,51 +1272,63 @@
                             <canvas class="scratch-overlay" id="scratch-canvas"></canvas>
                         </div>
                     </div>
+                    
                     <div class="scratch-count">
                         <span id="scratch-count">1</span> scratch card left (₹2 each)
                     </div>
+                    
                     <button class="btn btn-secondary" id="get-more-scratches"><i class="fas fa-user-plus"></i> Invite Friends to Get More</button>
                 </div>
                 
+                <!-- Daily Bonus -->
                 <div class="card">
                     <h3 class="card-title"><i class="fas fa-calendar-check"></i> Daily Bonus</h3>
                     <p>Claim your daily bonus to earn more!</p>
-                    <div class="daily-bonus-container" id="daily-bonus"></div>
+                    <div class="daily-bonus-container" id="daily-bonus">
+                        <!-- Filled by JavaScript -->
+                    </div>
                 </div>
             </div>
             
+            <!-- Withdraw Tab Content -->
             <div id="withdraw-content" style="display: none;">
                 <div class="card">
                     <h3 class="card-title"><i class="fas fa-university"></i> Withdraw Funds</h3>
-                    <p>Transfer your earnings to your UPI account (20% GST applies)</p>
+                    <p>Transfer your earnings to your UPI account (30% GST applies)</p>
+                    
                     <button class="btn" id="withdraw-btn"><i class="fas fa-wallet"></i> Withdraw ₹<span id="withdraw-amount">50</span></button>
+                    
                     <div class="upi-form" id="upi-form">
                         <div class="form-group">
                             <label for="upi-id"><i class="fas fa-id-card"></i> UPI ID</label>
                             <input type="text" id="upi-id" placeholder="yourname@upi" autocomplete="off">
                         </div>
+                        
                         <div class="form-group">
                             <label for="amount"><i class="fas fa-rupee-sign"></i> Amount (₹)</label>
                             <input type="number" id="amount" min="10" max="50" value="50">
                             <div class="gst-warning">* 20% GST will be deducted (₹10 will be ₹8 after tax)</div>
                         </div>
+                        
                         <p style="text-align: center; margin: 15px 0; color: #636E72; font-size: 14px;">
                             <i class="fas fa-mobile-alt"></i> Select your UPI app
                         </p>
+                        
                         <div class="upi-apps">
                             <div class="upi-app" data-upi="googlepay">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Google_Pay_%28GPay%29_Logo.svg/512px-Google_Pay_%28GPay%29_Logo.svg.png" alt="Google Pay">
+                                <img src="https://en.m.wikipedia.org/wiki/File:Google_Pay_Logo.svg" alt="Google Pay">
                             </div>
                             <div class="upi-app" data-upi="phonepe">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/PhonePe_Logo.svg/2560px-PhonePe_Logo.svg.png" alt="PhonePe">
+                                <img src="https://en.m.wikipedia.org/wiki/File:PhonePe_Logo.svg" alt="PhonePe">
                             </div>
                             <div class="upi-app" data-upi="paytm">
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Paytm_logo.png/640px-Paytm_logo.png" alt="Paytm">
                             </div>
                             <div class="upi-app" data-upi="bhim">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/BHIM_Logo.svg/1200px-BHIM_Logo.svg.png" alt="BHIM">
+                                <img src="https://en.m.wikipedia.org/wiki/File:BHIM_SVG_Logo.svg" alt="BHIM">
                             </div>
                         </div>
+                        
                         <button class="btn" id="confirm-withdraw"><i class="fas fa-paper-plane"></i> Confirm Withdrawal</button>
                     </div>
                 </div>
@@ -894,32 +1344,79 @@
                 </div>
             </div>
             
+            <!-- Referrals Tab Content -->
             <div id="referrals-content" style="display: none;">
                 <div class="card">
                     <h3 class="card-title"><i class="fas fa-users"></i> Refer & Earn</h3>
                     <p>Invite friends and earn 1 scratch card (₹2 value) per referral</p>
+                    
+                    <!-- User Profile Section -->
+                    <div class="profile-section">
+                        <div class="profile-avatar" id="profile-avatar">U</div>
+                        <div class="profile-info">
+                            <div class="profile-name" id="profile-name">User123</div>
+                            <div class="profile-level">Level 2 Earner</div>
+                            <div class="badges-container" id="badges-container">
+                                <!-- Badges will be added here by JavaScript -->
+                            </div>
+                        </div>
+                        <button class="edit-profile-btn" id="edit-profile-btn"><i class="fas fa-pencil-alt"></i></button>
+                    </div>
+                    
                     <div class="referral-stats">
-                        <div class="stat-card" title="Total friends joined">
+                        <div class="stat-card">
                             <div class="stat-value" id="total-referrals">0</div>
                             <div class="stat-label">Total Referrals</div>
                         </div>
-                        <div class="stat-card" title="Earnings from referrals">
+                        <div class="stat-card">
                             <div class="stat-value" id="earned-from-ref">₹0</div>
                             <div class="stat-label">Earned</div>
                         </div>
-                        <div class="stat-card" title="Pending earnings">
+                        <div class="stat-card">
                             <div class="stat-value" id="pending-earnings">₹0</div>
                             <div class="stat-label">Pending</div>
                         </div>
                     </div>
+                    
                     <div class="referral-id-container">
                         <div>Your Referral ID</div>
                         <div class="referral-id" id="referral-code">FX5476104653</div>
-                        <button class="copy-btn" id="copy-btn" title="Copy Referral ID"><i class="fas fa-copy"></i></button>
+                        <button class="copy-btn" id="copy-btn"><i class="fas fa-copy"></i></button>
                     </div>
-                    <button class="btn referral-share-btn" id="share-referral-btn"><i class="fas fa-share-alt"></i> Share Referral Link</button>
-                    <div class="referral-history-container">
-                        <h4><i class="fas fa-list"></i> Referral History</h4>
+                    
+                    <!-- Social Sharing Buttons -->
+                    <div class="social-share">
+                        <div class="share-btn share-whatsapp" onclick="app.checkChannelBeforeShare('whatsapp')">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="share-btn share-telegram" onclick="app.checkChannelBeforeShare('telegram')">
+                            <i class="fab fa-telegram"></i>
+                        </div>
+                        <div class="share-btn share-facebook" onclick="app.checkChannelBeforeShare('facebook')">
+                            <i class="fab fa-facebook-f"></i>
+                        </div>
+                        <div class="share-btn share-twitter" onclick="app.checkChannelBeforeShare('twitter')">
+                            <i class="fab fa-twitter"></i>
+                        </div>
+                    </div>
+                    
+                    <button class="btn" id="share-referral-btn"><i class="fas fa-share-alt"></i> Share Referral Link</button>
+                    
+                    <!-- Coming Soon Section -->
+                    <div class="coming-soon">
+                        <div class="coming-soon-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <h4>Daily Tasks</h4>
+                        <p>Complete simple tasks to earn more rewards</p>
+                        <div class="progress-container">
+                            <div class="progress-bar"></div>
+                        </div>
+                        <p>Feature coming soon! We're working hard to bring you more ways to earn.</p>
+                    </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <h4 style="font-size: 16px; margin-bottom: 10px;"><i class="fas fa-list"></i> Referral History</h4>
                         <div id="referral-history">
                             <div class="empty-state">
                                 <i class="fas fa-user-friends"></i>
@@ -932,23 +1429,143 @@
         </div>
     </div>
 
+    <!-- Admin Controls (Hidden by default) -->
+    <div class="admin-controls" id="admin-controls" style="display: none;">
+        <button class="admin-btn" id="admin-btn" title="Admin Controls"><i class="fas fa-user-shield"></i></button>
+    </div>
+
+    <!-- Badge Modal -->
+    <div class="badge-modal" id="badge-modal">
+        <div class="badge-modal-content">
+            <button class="badge-modal-close" id="badge-modal-close">×</button>
+            <div class="badge-modal-icon" id="badge-modal-icon">
+                <i class="fas fa-trophy"></i>
+            </div>
+            <h3 class="badge-modal-title" id="badge-modal-title">Badge Name</h3>
+            <p class="badge-modal-description" id="badge-modal-description">Badge description goes here</p>
+            <div class="badge-modal-criteria" id="badge-modal-criteria">
+                <strong>Earning Criteria:</strong> Complete 10 referrals
+            </div>
+            <button class="btn" id="badge-modal-ok">OK</button>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="profile-modal" id="profile-modal">
+        <div class="profile-modal-content">
+            <button class="profile-modal-close" id="profile-modal-close">×</button>
+            <h3 class="profile-modal-title">Edit Profile</h3>
+            
+            <div class="profile-form-group">
+                <label for="profile-name-input">Display Name</label>
+                <input type="text" id="profile-name-input" placeholder="Enter your name">
+            </div>
+            
+            <div class="profile-form-group">
+                <label>Avatar Color</label>
+                <div style="display: flex; gap: 10px;">
+                    <div class="color-option" data-color="#6C5CE7" style="width: 30px; height: 30px; border-radius: 50%; background: #6C5CE7; cursor: pointer;"></div>
+                    <div class="color-option" data-color="#00CEFF" style="width: 30px; height: 30px; border-radius: 50%; background: #00CEFF; cursor: pointer;"></div>
+                    <div class="color-option" data-color="#FF7675" style="width: 30px; height: 30px; border-radius: 50%; background: #FF7675; cursor: pointer;"></div>
+                    <div class="color-option" data-color="#00B894" style="width: 30px; height: 30px; border-radius: 50%; background: #00B894; cursor: pointer;"></div>
+                </div>
+            </div>
+            
+            <div class="profile-form-actions">
+                <button class="btn btn-secondary" id="profile-cancel-btn">Cancel</button>
+                <button class="btn" id="profile-save-btn">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Message Modal -->
+    <div class="admin-modal" id="admin-modal" style="display: none;">
+        <div class="admin-modal-content">
+            <div class="admin-modal-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3 class="admin-modal-title">Withdrawals Paused</h3>
+            <p class="admin-modal-text">
+                Withdrawals are temporarily unavailable. Our bot will be back soon with exciting updates!
+                <br><br>
+                Join our Telegram channel for the latest updates and announcements.
+            </p>
+            <button class="admin-modal-btn" id="admin-modal-btn">Join Channel</button>
+        </div>
+    </div>
+
+    <!-- Custom Popup -->
+    <div class="popup-overlay" id="popup-overlay">
+        <div class="popup" id="popup">
+            <h3 id="popup-title"></h3>
+            <p id="popup-message"></p>
+            <div class="btn-container" id="popup-buttons"></div>
+        </div>
+    </div>
+
     <script>
+        // ===== CONFIGURATION ===== //
         const CONFIG = {
-            BOT_TOKEN: "YOUR_BOT_TOKEN",
-            CHANNELS: [{ id: 1, username: "EarnAppOfficial", name: "EarnApp Official", photo: "https://via.placeholder.com/150/6C5CE7/FFFFFF?text=EA", members: "12K+ members", inviteLink: "https://t.me/EarnAppOfficial" }],
+            BOT_TOKEN: "7388153976:AAE1gq2aB8g0XgGnUmi75U8fzKH9nxiYpxA",
+            CHANNELS: [
+                {
+                    id: 1,
+                    username: "CRYPTO_CITY_OP",
+                    name: "CRYPTO_CITY_OP",
+                    photo: "https://upload.wikimedia.org/wikipedia/commons/8/85/BlackRock_wordmark.svg",
+                    members: "10K+ members",
+                    inviteLink: "https://https://t.me/CRYPTO_CITY_OP"
+                }
+            ],
             GST_RATE: 0.2,
             SCRATCH_CARD_VALUE: 2,
             MIN_WITHDRAWAL: 10,
-            INITIAL_BALANCE: 50,
+            INITIAL_BALANCE: 0,
             DAILY_BONUSES: [
-                { day: 1, amount: 10, claimed: true },
-                { day: 2, amount: 20, claimed: false },
-                { day: 3, amount: 30, claimed: false },
-                { day: 4, amount: 40, claimed: false },
-                { day: 5, amount: 50, claimed: false }
-            ]
+                { day: 1, amount: 0.1, claimed: true },
+                { day: 2, amount: 0.2, claimed: false },
+                { day: 3, amount: 0.3, claimed: false },
+                { day: 4, amount: 0.4, claimed: false },
+                { day: 5, amount: 0.5, claimed: false }
+            ],
+            BADGES: [
+                {
+                    id: 1,
+                    name: "Referral Master",
+                    icon: "fa-user-plus",
+                    description: "Awarded for referring friends",
+                    criteria: "Refer 5 friends to earn this badge",
+                    earned: true
+                },
+                {
+                    id: 2,
+                    name: "Daily Earner",
+                    icon: "fa-coins",
+                    description: "For consistent daily earnings",
+                    criteria: "Claim daily bonus 3 days in a row",
+                    earned: true
+                },
+                {
+                    id: 3,
+                    name: "Top Earner",
+                    icon: "fa-trophy",
+                    description: "Elite status for top performers",
+                    criteria: "Reach ₹500 in total earnings",
+                    earned: false
+                },
+                {
+                    id: 4,
+                    name: "Scratch Champion",
+                    icon: "fa-ticket-alt",
+                    description: "Master of scratch cards",
+                    criteria: "Scratch 10 cards successfully",
+                    earned: false
+                }
+            ],
+            ADMIN_PASSWORD: "admin123" // In production, use more secure authentication
         };
 
+        // ===== STATE MANAGEMENT ===== //
         const state = {
             balance: CONFIG.INITIAL_BALANCE,
             scratchCards: 1,
@@ -963,22 +1580,39 @@
             currentDay: 1,
             selectedUpiApp: null,
             joinedChannels: [],
-            isDarkMode: false
+            isDarkMode: false,
+            hasJoinedChannel: false,
+            userProfile: {
+                name: "User" + Math.floor(Math.random() * 1000),
+                avatarColor: "#6C5CE7",
+                badges: CONFIG.BADGES,
+                level: 2
+            },
+            isAdmin: false,
+            withdrawalsEnabled: true
         };
 
+        // ===== DOM ELEMENTS ===== //
         const elements = {
+            // Tabs
             earnTab: document.getElementById('earn-tab'),
             withdrawTab: document.getElementById('withdraw-tab'),
             referralsTab: document.getElementById('referrals-tab'),
             earnContent: document.getElementById('earn-content'),
             withdrawContent: document.getElementById('withdraw-content'),
             referralsContent: document.getElementById('referrals-content'),
+            
+            // Balance
             balanceAmount: document.getElementById('balance-amount'),
             minWithdrawal: document.getElementById('min-withdrawal'),
+            
+            // Scratch Card
             scratchCanvas: document.getElementById('scratch-canvas'),
             prizeAmount: document.getElementById('prize-amount'),
             scratchCount: document.getElementById('scratch-count'),
             getMoreScratches: document.getElementById('get-more-scratches'),
+            
+            // Withdrawal
             withdrawBtn: document.getElementById('withdraw-btn'),
             withdrawAmount: document.getElementById('withdraw-amount'),
             upiForm: document.getElementById('upi-form'),
@@ -986,6 +1620,8 @@
             amount: document.getElementById('amount'),
             confirmWithdraw: document.getElementById('confirm-withdraw'),
             withdrawalHistory: document.getElementById('withdrawal-history'),
+            
+            // Referrals
             referralBadge: document.getElementById('referral-badge'),
             referralCode: document.getElementById('referral-code'),
             copyBtn: document.getElementById('copy-btn'),
@@ -994,64 +1630,211 @@
             earnedFromRef: document.getElementById('earned-from-ref'),
             pendingEarnings: document.getElementById('pending-earnings'),
             referralHistory: document.getElementById('referral-history'),
+            
+            // Daily Bonus
             dailyBonusContainer: document.getElementById('daily-bonus'),
+            
+            // Notification
             notification: document.getElementById('notification'),
             notificationIcon: document.getElementById('notification-icon'),
             notificationTitle: document.getElementById('notification-title'),
             notificationText: document.getElementById('notification-text'),
+            
+            // Dark Mode
             darkModeToggle: document.getElementById('darkModeToggle'),
-            upiApps: document.querySelectorAll('.upi-app')
+            
+            // UPI Apps
+            upiApps: document.querySelectorAll('.upi-app'),
+            
+            // Profile
+            profileAvatar: document.getElementById('profile-avatar'),
+            profileName: document.getElementById('profile-name'),
+            badgesContainer: document.getElementById('badges-container'),
+            editProfileBtn: document.getElementById('edit-profile-btn'),
+            
+            // Modals
+            badgeModal: document.getElementById('badge-modal'),
+            badgeModalClose: document.getElementById('badge-modal-close'),
+            badgeModalIcon: document.getElementById('badge-modal-icon'),
+            badgeModalTitle: document.getElementById('badge-modal-title'),
+            badgeModalDescription: document.getElementById('badge-modal-description'),
+            badgeModalCriteria: document.getElementById('badge-modal-criteria'),
+            badgeModalOk: document.getElementById('badge-modal-ok'),
+            
+            profileModal: document.getElementById('profile-modal'),
+            profileModalClose: document.getElementById('profile-modal-close'),
+            profileNameInput: document.getElementById('profile-name-input'),
+            profileCancelBtn: document.getElementById('profile-cancel-btn'),
+            profileSaveBtn: document.getElementById('profile-save-btn'),
+            
+            // Admin
+            adminControls: document.getElementById('admin-controls'),
+            adminBtn: document.getElementById('admin-btn'),
+            adminModal: document.getElementById('admin-modal'),
+            adminModalBtn: document.getElementById('admin-modal-btn'),
+            
+            // Popup
+            popupOverlay: document.getElementById('popup-overlay'),
+            popup: document.getElementById('popup'),
+            popupTitle: document.getElementById('popup-title'),
+            popupMessage: document.getElementById('popup-message'),
+            popupButtons: document.getElementById('popup-buttons')
         };
 
+        // ===== UTILITY FUNCTIONS ===== //
         const utils = {
             showNotification: (type, title, message, duration = 5000) => {
                 elements.notificationTitle.textContent = title;
                 elements.notificationText.textContent = message;
+                
                 let icon = 'fa-info-circle';
                 elements.notificationIcon.className = 'notification-icon';
+                
                 switch(type.toLowerCase()) {
-                    case 'success': icon = 'fa-check-circle'; elements.notificationIcon.classList.add('notification-success'); break;
-                    case 'error': icon = 'fa-times-circle'; elements.notificationIcon.classList.add('notification-error'); break;
-                    case 'warning': icon = 'fa-exclamation-triangle'; elements.notificationIcon.classList.add('notification-warning'); break;
-                    case 'info': icon = 'fa-info-circle'; elements.notificationIcon.classList.add('notification-info'); break;
+                    case 'success':
+                        icon = 'fa-check-circle';
+                        elements.notificationIcon.classList.add('notification-success');
+                        break;
+                    case 'error':
+                        icon = 'fa-times-circle';
+                        elements.notificationIcon.classList.add('notification-error');
+                        break;
+                    case 'warning':
+                        icon = 'fa-exclamation-triangle';
+                        elements.notificationIcon.classList.add('notification-warning');
+                        break;
+                    case 'info':
+                        icon = 'fa-info-circle';
+                        elements.notificationIcon.classList.add('notification-info');
+                        break;
                 }
+                
                 elements.notificationIcon.innerHTML = `<i class="fas ${icon}"></i>`;
                 elements.notification.style.display = 'flex';
-                setTimeout(() => elements.notification.style.display = 'none', duration);
+                
+                setTimeout(() => {
+                    elements.notification.style.display = 'none';
+                }, duration);
             },
-            validateUpiId: (upiId) => /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]+$/.test(upiId),
+            
+            validateUpiId: (upiId) => {
+                const upiRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9]+$/;
+                return upiRegex.test(upiId);
+            },
+            
             copyToClipboard: (text) => {
                 return new Promise((resolve, reject) => {
-                    if (navigator.clipboard && navigator.permissions) {
-                        navigator.clipboard.writeText(text).then(resolve).catch(() => {
-                            const textarea = document.createElement('textarea');
-                            textarea.value = text;
-                            document.body.appendChild(textarea);
-                            textarea.select();
-                            document.execCommand('copy');
-                            document.body.removeChild(textarea);
-                            resolve();
-                        });
+                    if (navigator.clipboard) {
+                        navigator.clipboard.writeText(text).then(resolve).catch(reject);
                     } else {
                         const textarea = document.createElement('textarea');
                         textarea.value = text;
+                        textarea.style.position = 'fixed';
                         document.body.appendChild(textarea);
                         textarea.select();
-                        document.execCommand('copy');
-                        document.body.removeChild(textarea);
-                        resolve();
+                        
+                        try {
+                            const successful = document.execCommand('copy');
+                            document.body.removeChild(textarea);
+                            successful ? resolve() : reject();
+                        } catch (err) {
+                            document.body.removeChild(textarea);
+                            reject(err);
+                        }
                     }
                 });
             },
+            
             generateReferralCode: (userId) => {
                 const timestamp = Date.now().toString(36).slice(-4).toUpperCase();
                 const randomStr = Math.random().toString(36).substr(2, 5).toUpperCase();
                 return `REF${timestamp}${randomStr}`;
             },
-            isInTelegramApp: () => window.navigator.userAgent.includes('Telegram') || window.TelegramWebViewProxy !== undefined || (window.Telegram && Telegram.WebApp),
-            formatCurrency: (amount) => `₹${amount.toFixed(2)}`
+            
+            isInTelegramApp: () => {
+                return window.navigator.userAgent.includes('Telegram') || 
+                       window.TelegramWebViewProxy !== undefined ||
+                       (window.Telegram && Telegram.WebApp);
+            },
+            
+            formatCurrency: (amount) => {
+                return `₹${amount.toFixed(2)}`;
+            },
+            
+            showModal: (modal) => {
+                modal.style.display = 'flex';
+                setTimeout(() => {
+                    modal.style.opacity = '1';
+                }, 10);
+            },
+            
+            hideModal: (modal) => {
+                modal.style.opacity = '0';
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 300);
+            },
+            
+            showAlert: (message) => {
+                return new Promise((resolve) => {
+                    elements.popupTitle.textContent = 'Notice';
+                    elements.popupMessage.textContent = message;
+                    elements.popupButtons.innerHTML = `
+                        <button class="btn" id="popup-ok">OK</button>
+                    `;
+                    elements.popupOverlay.style.display = 'flex';
+                    document.getElementById('popup-ok').addEventListener('click', () => {
+                        elements.popupOverlay.style.display = 'none';
+                        resolve(true);
+                    });
+                });
+            },
+            
+            showConfirm: (title, message) => {
+                return new Promise((resolve) => {
+                    elements.popupTitle.textContent = title;
+                    elements.popupMessage.textContent = message;
+                    elements.popupButtons.innerHTML = `
+                        <button class="btn" id="popup-yes">Yes</button>
+                        <button class="btn btn-secondary" id="popup-no">No</button>
+                    `;
+                    elements.popupOverlay.style.display = 'flex';
+                    document.getElementById('popup-yes').addEventListener('click', () => {
+                        elements.popupOverlay.style.display = 'none';
+                        resolve(true);
+                    });
+                    document.getElementById('popup-no').addEventListener('click', () => {
+                        elements.popupOverlay.style.display = 'none';
+                        resolve(false);
+                    });
+                });
+            },
+            
+            showChannelPrompt: (callback) => {
+                elements.popupTitle.textContent = 'Join Our Channel';
+                elements.popupMessage.innerHTML = `
+                    To unlock referral features, join our Telegram channel:<br>
+                    <a href="${CONFIG.CHANNELS[0].inviteLink}" target="_blank" style="color: var(--primary); text-decoration: underline;">${CONFIG.CHANNELS[0].username}</a><br>
+                    After joining, click "I've Joined" to proceed.
+                `;
+                elements.popupButtons.innerHTML = `
+                    <button class="btn" id="popup-join">I've Joined</button>
+                    <button class="btn btn-secondary" id="popup-cancel">Cancel</button>
+                `;
+                elements.popupOverlay.style.display = 'flex';
+                document.getElementById('popup-join').addEventListener('click', () => {
+                    elements.popupOverlay.style.display = 'none';
+                    state.hasJoinedChannel = true;
+                    app.saveState();
+                    callback();
+                });
+                document.getElementById('popup-cancel').addEventListener('click', () => {
+                    elements.popupOverlay.style.display = 'none';
+                });
+            }
         };
 
+        // ===== CORE FUNCTIONALITY ===== //
         const app = {
             init: () => {
                 app.loadState();
@@ -1059,23 +1842,38 @@
                 app.initScratchCard();
                 app.renderDailyBonuses();
                 app.render();
+                app.initProfile();
+                
+                // Check for admin mode in URL
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('admin')) {
+                    const password = prompt('Enter admin password:');
+                    if (password === CONFIG.ADMIN_PASSWORD) {
+                        state.isAdmin = true;
+                        elements.adminControls.style.display = 'block';
+                        utils.showNotification('success', 'Admin Mode', 'Admin controls enabled');
+                    }
+                }
+                
                 if (window.Telegram?.WebApp) {
                     Telegram.WebApp.expand();
                     Telegram.WebApp.enableClosingConfirmation();
+                    
                     const userId = Telegram.WebApp.initDataUnsafe?.user?.id;
                     if (userId) {
                         state.referralCode = utils.generateReferralCode(userId);
                         app.render();
                     }
                 }
-                window.scrollTo(0, 1);
             },
+            
             loadState: () => {
                 try {
                     const savedState = localStorage.getItem('earnAppState');
                     if (savedState) {
                         const parsedState = JSON.parse(savedState);
                         Object.assign(state, parsedState);
+                        
                         if (state.isDarkMode) {
                             document.body.classList.add('dark-mode');
                             const icon = elements.darkModeToggle.querySelector('i');
@@ -1086,6 +1884,7 @@
                     console.error('Failed to load state:', e);
                 }
             },
+            
             saveState: () => {
                 try {
                     localStorage.setItem('earnAppState', JSON.stringify(state));
@@ -1093,86 +1892,155 @@
                     console.error('Failed to save state:', e);
                 }
             },
+            
             setupEventListeners: () => {
-                elements.earnTab.addEventListener('click', () => { console.log('Earn tab clicked'); app.switchTab('earn'); });
-                elements.withdrawTab.addEventListener('click', () => { console.log('Withdraw tab clicked'); app.switchTab('withdraw'); });
-                elements.referralsTab.addEventListener('click', () => { console.log('Referrals tab clicked'); app.switchTab('referrals'); });
+                // Tab switching
+                elements.earnTab.addEventListener('click', () => app.switchTab('earn'));
+                elements.withdrawTab.addEventListener('click', () => app.switchTab('withdraw'));
+                elements.referralsTab.addEventListener('click', () => app.switchTab('referrals'));
+                
+                // Withdraw button
                 elements.withdrawBtn.addEventListener('click', () => {
-                    console.log('Withdraw button clicked');
+                    if (!state.withdrawalsEnabled) {
+                        utils.showAlert('Withdrawals are temporarily unavailable. Please check back later.');
+                        return;
+                    }
                     elements.upiForm.style.display = 'block';
                     elements.withdrawBtn.style.display = 'none';
                     elements.upiId.focus();
                 });
-                elements.confirmWithdraw.addEventListener('click', () => {
-                    console.log('Confirm withdrawal clicked');
-                    app.processWithdrawal();
-                });
+                
+                // Confirm withdrawal
+                elements.confirmWithdraw.addEventListener('click', app.processWithdrawal);
+                
+                // Get more scratches button
                 elements.getMoreScratches.addEventListener('click', () => {
-                    console.log('Get more scratches clicked');
                     if (utils.isInTelegramApp()) {
                         app.showChannelJoinModal();
                     } else {
                         app.switchTab('referrals');
-                        utils.showNotification('info', 'Refer Friends', 'Invite friends to get more scratch cards!');
+                        utils.showAlert('Invite friends to get more scratch cards!');
                     }
                 });
-                elements.copyBtn.addEventListener('click', () => {
-                    console.log('Copy button clicked');
-                    app.copyReferralCode();
-                });
-                elements.shareReferralBtn.addEventListener('click', () => {
-                    console.log('Share referral clicked');
-                    app.shareReferralLink();
-                });
+                
+                // Copy referral code
+                elements.copyBtn.addEventListener('click', app.checkChannelBeforeCopy);
+                
+                // Share referral link
+                elements.shareReferralBtn.addEventListener('click', () => app.checkChannelBeforeShare('default'));
+                
+                // Amount input validation
                 elements.amount.addEventListener('input', () => {
                     const maxAmount = state.balance;
                     const inputAmount = parseInt(elements.amount.value);
-                    if (isNaN(inputAmount)) elements.amount.value = state.minWithdrawal;
-                    else if (inputAmount > maxAmount) elements.amount.value = maxAmount;
-                    else if (inputAmount < state.minWithdrawal) elements.amount.value = state.minWithdrawal;
+                    
+                    if (isNaN(inputAmount)) {
+                        elements.amount.value = state.minWithdrawal;
+                        return;
+                    }
+                    
+                    if (inputAmount > maxAmount) {
+                        elements.amount.value = maxAmount;
+                    }
+                    
+                    if (inputAmount < state.minWithdrawal) {
+                        elements.amount.value = state.minWithdrawal;
+                    }
                 });
+                
+                // Daily bonus click
                 elements.dailyBonusContainer.addEventListener('click', (e) => {
                     const bonusDay = e.target.closest('.bonus-day');
                     if (!bonusDay) return;
+                    
                     const dayIndex = Array.from(elements.dailyBonusContainer.children).indexOf(bonusDay);
-                    console.log('Daily bonus clicked, day:', dayIndex);
                     app.claimDailyBonus(dayIndex);
                 });
-                elements.darkModeToggle.addEventListener('click', () => {
-                    console.log('Dark mode toggle clicked');
-                    app.toggleDarkMode();
+                
+                // Dark mode toggle
+                elements.darkModeToggle.addEventListener('click', app.toggleDarkMode);
+                
+                // UPI app selection
+                elements.upiApps.forEach(appEl => {
+                    appEl.addEventListener('click', () => app.selectUpiApp(appEl));
                 });
-                elements.upiApps.forEach(appEl => appEl.addEventListener('click', () => {
-                    console.log('UPI app clicked:', appEl.dataset.upi);
-                    app.selectUpiApp(appEl);
-                }));
-                if (!utils.isInTelegramApp()) {
-                    elements.shareReferralBtn.addEventListener('click', () => {
-                        console.log('Share referral (non-Telegram) clicked');
-                        const shareText = `Join me on EarnApp! Use my referral code ${state.referralCode} to get a bonus: https://example.com?ref=${state.referralCode}`;
-                        utils.copyToClipboard(shareText);
-                        utils.showNotification('success', 'Link Copied!', 'Share this link with your friends!');
+                
+                // Badge modal
+                elements.badgeModalClose.addEventListener('click', () => {
+                    elements.badgeModal.classList.remove('active');
+                });
+                
+                elements.badgeModalOk.addEventListener('click', () => {
+                    elements.badgeModal.classList.remove('active');
+                });
+                
+                // Profile modal
+                elements.editProfileBtn.addEventListener('click', () => {
+                    elements.profileNameInput.value = state.userProfile.name;
+                    elements.profileModal.classList.add('active');
+                });
+                
+                elements.profileModalClose.addEventListener('click', () => {
+                    elements.profileModal.classList.remove('active');
+                });
+                
+                elements.profileCancelBtn.addEventListener('click', () => {
+                    elements.profileModal.classList.remove('active');
+                });
+                
+                elements.profileSaveBtn.addEventListener('click', () => {
+                    const newName = elements.profileNameInput.value.trim();
+                    if (newName) {
+                        state.userProfile.name = newName;
+                        app.renderProfile();
+                        elements.profileModal.classList.remove('active');
+                        utils.showAlert('Your changes have been saved');
+                    }
+                });
+                
+                // Color options
+                document.querySelectorAll('.color-option').forEach(option => {
+                    option.addEventListener('click', function() {
+                        state.userProfile.avatarColor = this.dataset.color;
+                        app.renderProfile();
                     });
-                }
+                });
+                
+                // Admin controls
+                elements.adminBtn.addEventListener('click', () => {
+                    app.toggleWithdrawals();
+                });
+                
+                elements.adminModalBtn.addEventListener('click', () => {
+                    window.open(CONFIG.CHANNELS[0].inviteLink, '_blank');
+                    utils.hideModal(elements.adminModal);
+                });
             },
+            
             render: () => {
                 elements.balanceAmount.textContent = state.balance;
                 elements.withdrawAmount.textContent = state.balance;
                 elements.minWithdrawal.textContent = state.minWithdrawal;
+                
                 elements.amount.value = Math.max(state.balance, state.minWithdrawal);
                 elements.amount.max = state.balance;
+                
                 elements.withdrawBtn.disabled = state.balance < state.minWithdrawal;
+                
                 elements.scratchCount.textContent = state.scratchCards;
                 elements.prizeAmount.textContent = utils.formatCurrency(CONFIG.SCRATCH_CARD_VALUE);
+                
                 elements.totalReferrals.textContent = state.totalReferrals;
                 elements.earnedFromRef.textContent = utils.formatCurrency(state.earnedFromReferrals);
                 elements.pendingEarnings.textContent = utils.formatCurrency(state.pendingReferrals);
                 elements.referralCode.textContent = state.referralCode;
                 elements.referralBadge.textContent = state.totalReferrals;
+                
                 app.renderWithdrawalHistory();
                 app.renderReferralHistory();
                 app.saveState();
             },
+            
             renderDailyBonuses: () => {
                 let html = '';
                 state.dailyBonuses.forEach((bonus, index) => {
@@ -1188,6 +2056,7 @@
                 });
                 elements.dailyBonusContainer.innerHTML = html;
             },
+            
             renderWithdrawalHistory: () => {
                 if (state.withdrawals.length === 0) {
                     elements.withdrawalHistory.innerHTML = `
@@ -1198,11 +2067,20 @@
                     `;
                     return;
                 }
+                
                 let html = '';
                 state.withdrawals.forEach(withdrawal => {
-                    let statusClass = 'status-processing', statusIcon = 'fa-clock';
-                    if (withdrawal.status === 'Success') { statusClass = 'status-success'; statusIcon = 'fa-check-circle'; }
-                    else if (withdrawal.status === 'Failed') { statusClass = 'status-failed'; statusIcon = 'fa-times-circle'; }
+                    let statusClass = 'status-processing';
+                    let statusIcon = 'fa-clock';
+                    
+                    if (withdrawal.status === 'Success') {
+                        statusClass = 'status-success';
+                        statusIcon = 'fa-check-circle';
+                    } else if (withdrawal.status === 'Failed') {
+                        statusClass = 'status-failed';
+                        statusIcon = 'fa-times-circle';
+                    }
+                    
                     html += `
                         <div class="withdrawal-item">
                             <div class="withdrawal-details">
@@ -1215,8 +2093,10 @@
                         </div>
                     `;
                 });
+                
                 elements.withdrawalHistory.innerHTML = html;
             },
+            
             renderReferralHistory: () => {
                 if (state.referrals.length === 0) {
                     elements.referralHistory.innerHTML = `
@@ -1227,10 +2107,19 @@
                     `;
                     return;
                 }
+                
                 let html = '';
                 state.referrals.forEach(referral => {
-                    let statusClass = 'status-processing', statusIcon = 'fa-clock', statusText = 'Pending';
-                    if (referral.status === 'Completed') { statusClass = 'status-success'; statusIcon = 'fa-check-circle'; statusText = 'Completed'; }
+                    let statusClass = 'status-processing';
+                    let statusIcon = 'fa-clock';
+                    let statusText = 'Pending';
+                    
+                    if (referral.status === 'Completed') {
+                        statusClass = 'status-success';
+                        statusIcon = 'fa-check-circle';
+                        statusText = 'Completed';
+                    }
+                    
                     html += `
                         <div class="withdrawal-item">
                             <div class="withdrawal-details">
@@ -1243,15 +2132,107 @@
                         </div>
                     `;
                 });
+                
                 elements.referralHistory.innerHTML = html;
             },
+            
+            initProfile: () => {
+                // Set profile avatar
+                elements.profileAvatar.textContent = state.userProfile.name.charAt(0).toUpperCase();
+                elements.profileAvatar.style.background = state.userProfile.avatarColor;
+                
+                // Set profile name
+                elements.profileName.textContent = state.userProfile.name;
+                
+                // Render badges
+                app.renderBadges();
+            },
+            
+            renderProfile: () => {
+                elements.profileAvatar.textContent = state.userProfile.name.charAt(0).toUpperCase();
+                elements.profileAvatar.style.background = state.userProfile.avatarColor;
+                elements.profileName.textContent = state.userProfile.name;
+                app.saveState();
+            },
+            
+            renderBadges: () => {
+                elements.badgesContainer.innerHTML = '';
+                
+                state.userProfile.badges.forEach(badge => {
+                    const badgeEl = document.createElement('div');
+                    badgeEl.className = `badge ${badge.earned ? '' : 'locked'}`;
+                    badgeEl.innerHTML = `
+                        <i class="fas ${badge.icon}"></i>
+                        <div class="badge-tooltip">${badge.name}</div>
+                    `;
+                    
+                    badgeEl.addEventListener('click', () => {
+                        if (badge.earned) {
+                            app.showBadgeDetails(badge);
+                        }
+                    });
+                    
+                    elements.badgesContainer.appendChild(badgeEl);
+                });
+            },
+            
+            showBadgeDetails: (badge) => {
+                elements.badgeModalIcon.innerHTML = `<i class="fas ${badge.icon}"></i>`;
+                elements.badgeModalTitle.textContent = badge.name;
+                elements.badgeModalDescription.textContent = badge.description;
+                elements.badgeModalCriteria.innerHTML = `<strong>Earning Criteria:</strong> ${badge.criteria}`;
+                
+                elements.badgeModal.classList.add('active');
+            },
+            
+            shareVia: (platform) => {
+                const referralLink = `https://scratch.com?ref=${state.referralCode}`;
+                const shareText = `Join me on EarnApp and earn money together! Use my referral code: ${state.referralCode}`;
+                
+                let url = '';
+                switch(platform) {
+                    case 'whatsapp':
+                        url = `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + referralLink)}`;
+                        break;
+                    case 'telegram':
+                        url = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent(shareText)}`;
+                        break;
+                    case 'facebook':
+                        url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(referralLink)}`;
+                        break;
+                    case 'twitter':
+                    url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(referralLink)}`;
+                        break;
+                }
+                
+                window.open(url, '_blank', 'width=600,height=400');
+                utils.showNotification('success', 'Shared!', `Opening ${platform}...`);
+            },
+            
+            toggleWithdrawals: () => {
+                state.withdrawalsEnabled = !state.withdrawalsEnabled;
+                
+                if (state.withdrawalsEnabled) {
+                    utils.showNotification('success', 'Withdrawals Enabled', 'Users can now withdraw funds');
+                } else {
+                    utils.showNotification('warning', 'Withdrawals Disabled', 'Users cannot withdraw funds');
+                    utils.showModal(elements.adminModal);
+                }
+                
+                app.saveState();
+            },
+            
+            // ... (keep all other existing methods the same) ...
+            
             switchTab: (tab) => {
                 elements.earnTab.classList.remove('active');
                 elements.withdrawTab.classList.remove('active');
                 elements.referralsTab.classList.remove('active');
+                
                 elements.earnContent.style.display = 'none';
                 elements.withdrawContent.style.display = 'none';
                 elements.referralsContent.style.display = 'none';
+                
                 if (tab === 'earn') {
                     elements.earnTab.classList.add('active');
                     elements.earnContent.style.display = 'block';
@@ -1263,25 +2244,35 @@
                     elements.referralsContent.style.display = 'block';
                 }
             },
+            
             initScratchCard: () => {
                 const canvas = elements.scratchCanvas;
                 const container = canvas.parentElement.parentElement;
+                
                 canvas.width = container.offsetWidth;
                 canvas.height = container.offsetHeight;
+                
                 const ctx = canvas.getContext('2d');
                 ctx.fillStyle = state.isDarkMode ? '#444' : '#333';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 ctx.globalCompositeOperation = 'destination-out';
-                let isDrawing = false, lastX = 0, lastY = 0;
+                
+                let isDrawing = false;
+                let lastX = 0;
+                let lastY = 0;
+                
                 const startScratch = (e) => {
                     if (state.scratchCards <= 0) return;
+                    
                     isDrawing = true;
                     const pos = app.getScratchPosition(e);
                     lastX = pos.x;
                     lastY = pos.y;
                 };
+                
                 const scratch = (e) => {
                     if (!isDrawing || state.scratchCards <= 0) return;
+                    
                     const pos = app.getScratchPosition(e);
                     ctx.beginPath();
                     ctx.moveTo(lastX, lastY);
@@ -1291,30 +2282,35 @@
                     ctx.lineCap = 'round';
                     ctx.lineJoin = 'round';
                     ctx.stroke();
+                    
                     lastX = pos.x;
                     lastY = pos.y;
+                    
                     app.checkScratchedArea();
                 };
+                
                 const stopScratch = () => {
                     isDrawing = false;
                 };
+                
                 canvas.addEventListener('mousedown', startScratch);
                 canvas.addEventListener('mousemove', scratch);
                 canvas.addEventListener('mouseup', stopScratch);
                 canvas.addEventListener('mouseout', stopScratch);
+                
                 canvas.addEventListener('touchstart', (e) => {
                     e.preventDefault();
-                    startScratch(e.touches[0]);
-                }, { passive: false });
+                    startScratch(e);
+                });
+                
                 canvas.addEventListener('touchmove', (e) => {
                     e.preventDefault();
-                    scratch(e.touches[0]);
-                }, { passive: false });
-                canvas.addEventListener('touchend', (e) => {
-                    e.preventDefault();
-                    stopScratch();
-                }, { passive: false });
+                    scratch(e);
+                });
+                
+                canvas.addEventListener('touchend', stopScratch);
             },
+            
             getScratchPosition: (e) => {
                 const rect = elements.scratchCanvas.getBoundingClientRect();
                 return {
@@ -1322,80 +2318,114 @@
                     y: (e.clientY || e.touches[0].clientY) - rect.top
                 };
             },
+            
             checkScratchedArea: () => {
                 const canvas = elements.scratchCanvas;
                 const ctx = canvas.getContext('2d');
                 const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
                 const pixels = imageData.data;
                 let transparentPixels = 0;
+                
                 for (let i = 0; i < pixels.length; i += 4) {
-                    if (pixels[i+3] === 0) transparentPixels++;
+                    if (pixels[i+3] === 0) {
+                        transparentPixels++;
+                    }
                 }
+                
                 const percentScratched = transparentPixels / (pixels.length / 4);
-                if (percentScratched > 0.5 && state.scratchCards > 0) app.revealPrize();
+                
+                if (percentScratched > 0.5 && state.scratchCards > 0) {
+                    app.revealPrize();
+                }
             },
+            
             revealPrize: () => {
                 state.scratchCards--;
                 const prize = CONFIG.SCRATCH_CARD_VALUE;
                 state.balance += prize;
+                
                 elements.prizeAmount.textContent = utils.formatCurrency(prize);
                 app.render();
+                
                 utils.showNotification('success', 'Congratulations!', `You won ${utils.formatCurrency(prize)} from scratch card!`);
                 elements.scratchCanvas.style.pointerEvents = 'none';
-                setTimeout(() => app.resetScratchCard(), 3000);
+                
+                setTimeout(() => {
+                    app.resetScratchCard();
+                }, 3000);
             },
+            
             resetScratchCard: () => {
                 const canvas = elements.scratchCanvas;
                 const ctx = canvas.getContext('2d');
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.fillStyle = state.isDarkMode ? '#444' : '#333';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
                 elements.prizeAmount.textContent = utils.formatCurrency(CONFIG.SCRATCH_CARD_VALUE);
                 elements.scratchCanvas.style.pointerEvents = 'auto';
             },
+            
             claimDailyBonus: (dayIndex) => {
                 const bonus = state.dailyBonuses[dayIndex];
+                
                 if (bonus.claimed) {
                     utils.showNotification('info', 'Already Claimed', `You've already claimed Day ${bonus.day} bonus`);
                     return;
                 }
+                
                 if (dayIndex !== state.currentDay) {
                     utils.showNotification('warning', 'Not Available', `Please claim Day ${state.currentDay + 1} bonus first`);
                     return;
                 }
+                
                 bonus.claimed = true;
                 state.balance += bonus.amount;
                 state.currentDay++;
+                
                 app.renderDailyBonuses();
                 app.render();
                 utils.showNotification('success', 'Bonus Claimed!', `You received ${utils.formatCurrency(bonus.amount)} for Day ${bonus.day}`);
             },
+            
             selectUpiApp: (appEl) => {
                 elements.upiApps.forEach(el => el.classList.remove('active'));
                 appEl.classList.add('active');
                 state.selectedUpiApp = appEl.dataset.upi;
                 utils.showNotification('success', 'App Selected', `${appEl.dataset.upi.toUpperCase()} selected for payment`);
             },
+            
             processWithdrawal: async () => {
+                if (!state.withdrawalsEnabled) {
+                    utils.showNotification('error', 'Withdrawals Paused', 'Withdrawals are temporarily unavailable. Please check back later.');
+                    return;
+                }
+                
                 const upiId = elements.upiId.value.trim();
                 const amount = parseInt(elements.amount.value);
+                
                 if (!utils.validateUpiId(upiId)) {
                     utils.showNotification('error', 'Invalid UPI ID', 'Please enter a valid UPI ID (e.g. yourname@upi)');
                     return;
                 }
+                
                 if (isNaN(amount) || amount < state.minWithdrawal || amount > state.balance) {
                     utils.showNotification('error', 'Invalid Amount', `Please enter amount between ${utils.formatCurrency(state.minWithdrawal)} and ${utils.formatCurrency(state.balance)}`);
                     return;
                 }
+                
                 if (!state.selectedUpiApp) {
                     utils.showNotification('error', 'No UPI App Selected', 'Please select your UPI app first');
                     return;
                 }
+                
                 const gstDeduction = Math.floor(amount * CONFIG.GST_RATE);
                 const netAmount = amount - gstDeduction;
+                
                 const originalText = elements.confirmWithdraw.innerHTML;
                 elements.confirmWithdraw.innerHTML = `<span class="spinner"></span> Processing...`;
                 elements.confirmWithdraw.disabled = true;
+                
                 const withdrawalId = 'W' + Math.floor(Math.random() * 1000000);
                 const newWithdrawal = {
                     id: withdrawalId,
@@ -1407,18 +2437,23 @@
                     status: 'Processing',
                     upiApp: state.selectedUpiApp
                 };
+                
                 state.withdrawals.unshift(newWithdrawal);
                 state.balance -= amount;
+                
                 elements.upiForm.style.display = 'none';
                 elements.withdrawBtn.style.display = 'block';
                 elements.upiId.value = '';
                 elements.upiApps.forEach(el => el.classList.remove('active'));
                 state.selectedUpiApp = null;
+                
                 app.render();
-                utils.showNotification('info', 'GST Applied', `${utils.formatCurrency(gstDeduction)} deducted (20%) from your withdrawal`);
+                utils.showNotification('info', 'GST Applied', `${utils.formatCurrency(gstDeduction)} deducted (30%) from your withdrawal`);
+                
                 setTimeout(() => {
                     const isSuccess = Math.random() > 0.2;
                     const withdrawal = state.withdrawals.find(w => w.id === withdrawalId);
+                    
                     if (isSuccess) {
                         withdrawal.status = 'Success';
                         utils.showNotification('success', 'Withdrawal Successful', `${utils.formatCurrency(netAmount)} has been transferred to your UPI`);
@@ -1427,11 +2462,13 @@
                         state.balance += amount;
                         utils.showNotification('error', 'Withdrawal Failed', 'Please try again or use different UPI ID');
                     }
+                    
                     elements.confirmWithdraw.innerHTML = originalText;
                     elements.confirmWithdraw.disabled = false;
                     app.render();
                 }, 3000);
             },
+            
             copyReferralCode: async () => {
                 try {
                     await utils.copyToClipboard(state.referralCode);
@@ -1441,11 +2478,13 @@
                     utils.showNotification('error', 'Error', 'Failed to copy referral code');
                 }
             },
+            
             shareReferralLink: () => {
                 if (utils.isInTelegramApp()) {
                     const userId = window.Telegram?.WebApp?.initDataUnsafe?.user?.id || 'user_' + Date.now();
                     const refCode = utils.generateReferralCode(userId);
                     const shareText = `Join me on EarnApp! Use my referral code ${refCode} to get a bonus: https://t.me/your_bot?start=ref_${refCode}`;
+                    
                     if (window.Telegram?.WebApp?.shareText) {
                         Telegram.WebApp.shareText(shareText);
                     } else {
@@ -1453,31 +2492,32 @@
                         utils.showNotification('success', 'Link Copied!', 'Referral link copied to clipboard');
                     }
                 } else {
-                    const shareText = `Join me on EarnApp! Use my referral code ${state.referralCode} to get a bonus: https://example.com?ref=${state.referralCode}`;
-                    utils.copyToClipboard(shareText);
-                    utils.showNotification('success', 'Link Copied!', 'Share this link with your friends!');
+                    app.copyReferralCode();
                 }
             },
+            
             toggleDarkMode: () => {
                 state.isDarkMode = !state.isDarkMode;
                 document.body.classList.toggle('dark-mode', state.isDarkMode);
+                
                 const icon = elements.darkModeToggle.querySelector('i');
-                if (state.isDarkMode) icon.classList.replace('fa-moon', 'fa-sun');
-                else icon.classList.replace('fa-sun', 'fa-moon');
+                if (state.isDarkMode) {
+                    icon.classList.replace('fa-moon', 'fa-sun');
+                } else {
+                    icon.classList.replace('fa-sun', 'fa-moon');
+                }
+                
                 app.resetScratchCard();
                 app.saveState();
             },
+            
             showChannelJoinModal: () => {
                 utils.showNotification('info', 'Telegram Channels', 'Join our Telegram channels to earn more rewards!');
             }
         };
 
+        // Initialize the app
         document.addEventListener('DOMContentLoaded', app.init);
-        window.addEventListener('load', () => {
-            document.documentElement.style.height = '100%';
-            document.body.style.height = '100%';
-            window.scrollTo(0, 1);
-        });
     </script>
 </body>
 </html>
