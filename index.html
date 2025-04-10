@@ -157,6 +157,8 @@
             position: relative;
             background: #f9fafc;
             min-height: 400px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
         
         .card {
@@ -703,6 +705,18 @@
             .card {
                 padding: 15px;
             }
+            
+            .scratch-container {
+                height: 140px;
+            }
+            
+            .referral-stats {
+                flex-direction: column;
+            }
+            
+            .stat-card {
+                margin-bottom: 10px;
+            }
         }
         
         /* Loading Spinner */
@@ -742,645 +756,6 @@
             margin-bottom: 10px;
         }
 
-        /* NEW STYLES FOR ADDED FEATURES */
-        
-        /* User Profile Section */
-        .profile-section {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            padding: 15px;
-            background: var(--light);
-            border-radius: 15px;
-            position: relative;
-        }
-        
-        .profile-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            margin-right: 15px;
-            flex-shrink: 0;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .profile-avatar:hover {
-            transform: scale(1.05);
-        }
-        
-        .profile-avatar:active {
-            transform: scale(0.95);
-        }
-        
-        .profile-info {
-            flex: 1;
-        }
-        
-        .profile-name {
-            font-weight: 600;
-            margin-bottom: 5px;
-            cursor: pointer;
-        }
-        
-        .profile-level {
-            font-size: 12px;
-            color: var(--dark);
-            opacity: 0.8;
-        }
-        
-        .edit-profile-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
-            color: var(--primary);
-            cursor: pointer;
-        }
-        
-        /* Badges Section */
-        .badges-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        
-        .badge {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .badge:hover {
-            transform: scale(1.1);
-        }
-        
-        .badge:active {
-            transform: scale(0.95);
-        }
-        
-        .badge i {
-            font-size: 20px;
-            color: var(--primary);
-        }
-        
-        .badge.locked {
-            filter: grayscale(100%);
-            opacity: 0.5;
-        }
-        
-        .badge-tooltip {
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--dark);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 12px;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.3s ease;
-        }
-        
-        .badge:hover .badge-tooltip {
-            opacity: 1;
-            bottom: calc(100% + 5px);
-        }
-        
-        /* Badge Modal */
-        .badge-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            pointer-events: none;
-            transition: var(--transition);
-        }
-        
-        .badge-modal.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-        
-        .badge-modal-content {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            width: 90%;
-            max-width: 350px;
-            text-align: center;
-            position: relative;
-            transform: translateY(20px);
-            transition: var(--transition);
-        }
-        
-        .badge-modal.active .badge-modal-content {
-            transform: translateY(0);
-        }
-        
-        .badge-modal-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-        }
-        
-        .badge-modal-icon {
-            font-size: 50px;
-            margin: 15px 0;
-            color: var(--primary);
-        }
-        
-        .badge-modal-title {
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        
-        .badge-modal-description {
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-        
-        .badge-modal-criteria {
-            background: var(--light);
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 13px;
-            margin-bottom: 15px;
-        }
-        
-        /* Social Sharing */
-        .social-share {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .share-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .share-btn:hover {
-            transform: translateY(-3px);
-        }
-        
-        .share-btn:active {
-            transform: translateY(1px);
-        }
-        
-        .share-whatsapp {
-            background: #25D366;
-        }
-        
-        .share-telegram {
-            background: #0088cc;
-        }
-        
-        .share-facebook {
-            background: #3b5998;
-        }
-        
-        .share-twitter {
-            background: #1DA1F2;
-        }
-        
-        /* Coming Soon Section */
-        .coming-soon {
-            text-align: center;
-            padding: 30px 20px;
-            background: var(--light);
-            border-radius: 15px;
-            margin-top: 20px;
-        }
-        
-        .coming-soon-icon {
-            font-size: 40px;
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-        
-        .progress-container {
-            height: 8px;
-            background: #e0e0e0;
-            border-radius: 4px;
-            margin: 20px 0;
-            overflow: hidden;
-        }
-        
-        .progress-bar {
-            height: 100%;
-            width: 65%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 4px;
-            animation: progress 2s ease-in-out infinite;
-        }
-        
-        @keyframes progress {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        /* Admin Controls */
-        .admin-controls {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 999;
-        }
-        
-        .admin-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--error);
-            color: white;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            transition: var(--transition);
-        }
-        
-        .admin-btn:hover {
-            transform: scale(1.1);
-        }
-        
-        .admin-btn:active {
-            transform: scale(0.95);
-        }
-        
-        /* Edit Profile Modal */
-        .profile-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            pointer-events: none;
-            transition: var(--transition);
-        }
-        
-        .profile-modal.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-        
-        .profile-modal-content {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            width: 90%;
-            max-width: 350px;
-            position: relative;
-            transform: translateY(20px);
-            transition: var(--transition);
-        }
-        
-        .profile-modal.active .profile-modal-content {
-            transform: translateY(0);
-        }
-        
-        .profile-modal-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-        }
-        
-        .profile-modal-title {
-            font-weight: 600;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .profile-form-group {
-            margin-bottom: 15px;
-        }
-        
-        .profile-form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-        
-        .profile-form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-        }
-        
-        .profile-form-actions {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-        
-        /* Admin Message Modal */
-        .admin-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        
-        .admin-modal-content {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            width: 90%;
-            max-width: 350px;
-            text-align: center;
-        }
-        
-        .admin-modal-icon {
-            font-size: 50px;
-            color: var(--error);
-            margin-bottom: 15px;
-        }
-        
-        .admin-modal-title {
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        
-        .admin-modal-text {
-            margin-bottom: 20px;
-        }
-        
-        .admin-modal-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 50px;
-            cursor: pointer;
-        }
-
-        /* NEW STYLES FOR ADDED FEATURES */
-        
-        /* Phone Number Field */
-        .phone-input-group {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .country-code {
-            padding: 15px;
-            background: #f9fafc;
-            border: 1px solid #e0e3e9;
-            border-radius: 12px 0 0 12px;
-            font-size: 16px;
-            border-right: none;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-        
-        .country-code i {
-            margin-right: 5px;
-        }
-        
-        .phone-number {
-            flex: 1;
-            border-radius: 0 12px 12px 0 !important;
-        }
-        
-        /* Win Popup */
-        .win-popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.3s ease;
-        }
-        
-        .win-popup.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-        
-        .win-popup-content {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            max-width: 300px;
-            width: 90%;
-            transform: scale(0.8);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .win-popup.active .win-popup-content {
-            transform: scale(1);
-        }
-        
-        .win-popup::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
-            transform: rotate(30deg);
-            animation: shine 3s infinite linear;
-        }
-        
-        .win-popup-icon {
-            font-size: 60px;
-            color: var(--success);
-            margin-bottom: 20px;
-            animation: bounce 1s infinite alternate;
-        }
-        
-        @keyframes bounce {
-            from { transform: translateY(0); }
-            to { transform: translateY(-15px); }
-        }
-        
-        .win-popup-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--success);
-        }
-        
-        .win-popup-amount {
-            font-size: 36px;
-            font-weight: 700;
-            margin: 15px 0;
-            color: var(--primary);
-        }
-        
-        .win-popup-text {
-            margin-bottom: 20px;
-            color: var(--dark);
-        }
-        
-        .win-popup-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 15px 25px;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            transition: var(--transition);
-        }
-        
-        .win-popup-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-3px);
-        }
-        
-        .win-popup-btn:active {
-            transform: translateY(1px);
-        }
-        
-        /* Confetti Effect */
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: var(--primary);
-            opacity: 0;
-        }
-        
-        /* Scratch Card Improvements */
-        .scratch-percentage {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            background: rgba(0,0,0,0.5);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            z-index: 10;
-        }
-        
-        /* Country Select Dropdown */
-        .country-select {
-            position: relative;
-            display: inline-block;
-        }
-        
-        .country-select-btn {
-            background: none;
-            border: none;
-            padding: 0;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-        }
-        
-        .country-select-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            z-index: 100;
-            max-height: 200px;
-            overflow-y: auto;
-            display: none;
-            width: 200px;
-        }
-        
-        .country-select-dropdown.active {
-            display: block;
-        }
-        
-        .country-option {
-            padding: 8px 15px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            transition: var(--transition);
-        }
-        
-        .country-option:hover {
-            background: var(--light);
-        }
-        
-        .country-flag {
-            width: 20px;
-            margin-right: 10px;
-            font-size: 20px;
-        }
-        
         /* Telegram ID Display */
         .telegram-id-container {
             background: var(--light);
@@ -1388,6 +763,7 @@
             border-radius: 10px;
             text-align: center;
             margin-top: 15px;
+            display: none;
         }
         
         .telegram-id {
@@ -1414,6 +790,7 @@
             justify-content: center;
             margin: 15px auto;
             transition: var(--transition);
+            display: none;
         }
         
         .telegram-login-btn i {
@@ -1430,39 +807,276 @@
             transform: translateY(1px);
         }
         
-        /* Telegram WebApp Fixes */
-        .telegram-webapp-fix {
+        /* Telegram Popup */
+        .telegram-popup {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 9999;
-            display: none;
+            background: rgba(0,0,0,0.8);
+            display: flex;
             justify-content: center;
             align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
         }
         
-        .telegram-webapp-fix-content {
+        .telegram-popup.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .telegram-popup-content {
             background: white;
-            padding: 20px;
-            border-radius: 15px;
-            max-width: 300px;
+            border-radius: 20px;
+            padding: 30px;
             text-align: center;
+            max-width: 300px;
+            width: 90%;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         
-        /* Input focus fix for mobile */
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            -webkit-tap-highlight-color: transparent;
+        .telegram-popup.active .telegram-popup-content {
+            transform: scale(1);
         }
         
-        /* Prevent zoom on input focus */
-        @media screen and (-webkit-min-device-pixel-ratio:0) {
-            select:focus, textarea:focus, input:focus {
+        .telegram-popup-icon {
+            font-size: 50px;
+            color: #0088cc;
+            margin-bottom: 20px;
+        }
+        
+        .telegram-popup-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .telegram-popup-text {
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-size: 15px;
+        }
+        
+        .telegram-popup-btn {
+            background: #0088cc;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: var(--transition);
+            margin-bottom: 10px;
+        }
+        
+        .telegram-popup-btn:hover {
+            background: #0077b3;
+            transform: translateY(-3px);
+        }
+        
+        .telegram-popup-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .telegram-popup-close {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        /* Admin Controls */
+        .admin-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+            display: none;
+        }
+        
+        .admin-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--error);
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: var(--transition);
+        }
+        
+        .admin-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .admin-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* Admin Panel */
+        .admin-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 3000;
+            display: none;
+            flex-direction: column;
+            padding: 20px;
+            color: white;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .admin-panel.active {
+            display: flex;
+        }
+        
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .admin-close {
+            background: var(--error);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .admin-section {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .admin-section h3 {
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 5px;
+        }
+        
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .admin-stat {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 8px;
+        }
+        
+        .admin-stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+        
+        .admin-stat-label {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .admin-control-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px 0;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        .admin-control-btn.toggle-off {
+            background: var(--error);
+        }
+        
+        .admin-withdrawals {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .admin-withdrawal-item {
+            background: rgba(255,255,255,0.05);
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+        
+        /* Mobile-specific optimizations */
+        @media (max-width: 480px) {
+            .app-container {
+                border-radius: 0;
+                max-width: 100%;
+                height: 100vh;
+            }
+            
+            .admin-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-section {
+                padding: 10px;
+            }
+            
+            .telegram-popup-content {
+                padding: 20px;
+                width: 95%;
+            }
+            
+            .telegram-popup-title {
+                font-size: 20px;
+            }
+            
+            .telegram-popup-text {
+                font-size: 14px;
+            }
+            
+            /* Prevent zooming on input focus */
+            input, textarea, select {
                 font-size: 16px;
             }
+        }
+        
+        /* Fix for iOS input zoom */
+        @supports (-webkit-touch-callout: none) {
+            input, textarea {
+                font-size: 16px;
+            }
+        }
+        
+        /* Prevent unwanted touch behaviors */
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
         }
     </style>
 </head>
@@ -1506,7 +1120,6 @@
                                 <div id="prize-amount">₹2</div>
                             </div>
                             <canvas class="scratch-overlay" id="scratch-canvas"></canvas>
-                            <div class="scratch-percentage" id="scratch-percentage">0% scratched</div>
                         </div>
                     </div>
                     
@@ -1539,17 +1152,6 @@
                         <div class="form-group">
                             <label for="upi-id"><i class="fas fa-id-card"></i> UPI ID</label>
                             <input type="text" id="upi-id" placeholder="yourname@upi" autocomplete="off">
-                        </div>
-                        
-                        <!-- Phone Number Field -->
-                        <div class="form-group">
-                            <label for="phone-number"><i class="fas fa-phone"></i> Phone Number (for verification)</label>
-                            <div class="phone-input-group">
-                                <div class="country-code" id="country-code">
-                                    <i class="fas fa-flag"></i> +91
-                                </div>
-                                <input type="tel" id="phone-number" class="phone-number" placeholder="9876543210" maxlength="10" inputmode="numeric">
-                            </div>
                         </div>
                         
                         <div class="form-group">
@@ -1609,19 +1211,6 @@
                         <i class="fab fa-telegram"></i> Connect Telegram
                     </button>
                     
-                    <!-- User Profile Section -->
-                    <div class="profile-section">
-                        <div class="profile-avatar" id="profile-avatar">U</div>
-                        <div class="profile-info">
-                            <div class="profile-name" id="profile-name">User123</div>
-                            <div class="profile-level">Level 2 Earner</div>
-                            <div class="badges-container" id="badges-container">
-                                <!-- Badges will be added here by JavaScript -->
-                            </div>
-                        </div>
-                        <button class="edit-profile-btn" id="edit-profile-btn"><i class="fas fa-pencil-alt"></i></button>
-                    </div>
-                    
                     <div class="referral-stats">
                         <div class="stat-card">
                             <div class="stat-value" id="total-referrals">0</div>
@@ -1643,36 +1232,7 @@
                         <button class="copy-btn" id="copy-btn"><i class="fas fa-copy"></i></button>
                     </div>
                     
-                    <!-- Social Sharing Buttons -->
-                    <div class="social-share">
-                        <div class="share-btn share-whatsapp" id="share-whatsapp">
-                            <i class="fab fa-whatsapp"></i>
-                        </div>
-                        <div class="share-btn share-telegram" id="share-telegram">
-                            <i class="fab fa-telegram"></i>
-                        </div>
-                        <div class="share-btn share-facebook" id="share-facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </div>
-                        <div class="share-btn share-twitter" id="share-twitter">
-                            <i class="fab fa-twitter"></i>
-                        </div>
-                    </div>
-                    
                     <button class="btn" id="share-referral-btn"><i class="fas fa-share-alt"></i> Share Referral Link</button>
-                    
-                    <!-- Coming Soon Section -->
-                    <div class="coming-soon">
-                        <div class="coming-soon-icon">
-                            <i class="fas fa-tasks"></i>
-                        </div>
-                        <h4>Daily Tasks</h4>
-                        <p>Complete simple tasks to earn more rewards</p>
-                        <div class="progress-container">
-                            <div class="progress-bar"></div>
-                        </div>
-                        <p>Feature coming soon! We're working hard to bring you more ways to earn.</p>
-                    </div>
                     
                     <div style="margin-top: 20px;">
                         <h4 style="font-size: 16px; margin-bottom: 10px;"><i class="fas fa-list"></i> Referral History</h4>
@@ -1688,90 +1248,74 @@
         </div>
     </div>
 
-    <!-- Win Popup -->
-    <div class="win-popup" id="win-popup">
-        <div class="win-popup-content">
-            <div class="win-popup-icon">
-                <i class="fas fa-trophy"></i>
+    <!-- Telegram Connection Popup -->
+    <div class="telegram-popup" id="telegram-popup">
+        <div class="telegram-popup-content">
+            <div class="telegram-popup-icon">
+                <i class="fab fa-telegram"></i>
             </div>
-            <h3 class="win-popup-title">Congratulations!</h3>
-            <div class="win-popup-amount" id="win-amount">₹2</div>
-            <p class="win-popup-text">You've won this amount! It has been added to your balance.</p>
-            <button class="win-popup-btn" id="win-popup-btn">Claim Reward</button>
+            <h3 class="telegram-popup-title">Connect Telegram</h3>
+            <p class="telegram-popup-text">
+                Connect your Telegram account to enable referrals and get bonus scratch cards!
+            </p>
+            <button class="telegram-popup-btn" id="telegram-connect-btn">
+                <i class="fab fa-telegram"></i> Connect Now
+            </button>
+            <button class="telegram-popup-close" id="telegram-popup-close">Maybe later</button>
         </div>
     </div>
 
-    <!-- Admin Controls (Hidden by default) -->
-    <div class="admin-controls" id="admin-controls" style="display: none;">
+    <!-- Admin Controls -->
+    <div class="admin-controls" id="admin-controls">
         <button class="admin-btn" id="admin-btn" title="Admin Controls"><i class="fas fa-user-shield"></i></button>
     </div>
 
-    <!-- Badge Modal -->
-    <div class="badge-modal" id="badge-modal">
-        <div class="badge-modal-content">
-            <button class="badge-modal-close" id="badge-modal-close">&times;</button>
-            <div class="badge-modal-icon" id="badge-modal-icon">
-                <i class="fas fa-trophy"></i>
-            </div>
-            <h3 class="badge-modal-title" id="badge-modal-title">Badge Name</h3>
-            <p class="badge-modal-description" id="badge-modal-description">Badge description goes here</p>
-            <div class="badge-modal-criteria" id="badge-modal-criteria">
-                <strong>Earning Criteria:</strong> Complete 10 referrals
-            </div>
-            <button class="btn" id="badge-modal-ok">OK</button>
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="admin-panel">
+        <div class="admin-header">
+            <h2>Admin Dashboard</h2>
+            <button class="admin-close" id="admin-close"><i class="fas fa-times"></i></button>
         </div>
-    </div>
-
-    <!-- Edit Profile Modal -->
-    <div class="profile-modal" id="profile-modal">
-        <div class="profile-modal-content">
-            <button class="profile-modal-close" id="profile-modal-close">&times;</button>
-            <h3 class="profile-modal-title">Edit Profile</h3>
-            
-            <div class="profile-form-group">
-                <label for="profile-name-input">Display Name</label>
-                <input type="text" id="profile-name-input" placeholder="Enter your name">
-            </div>
-            
-            <div class="profile-form-group">
-                <label>Avatar Color</label>
-                <div style="display: flex; gap: 10px;">
-                    <div class="color-option" data-color="#6C5CE7" style="width: 30px; height: 30px; border-radius: 50%; background: #6C5CE7; cursor: pointer;"></div>
-                    <div class="color-option" data-color="#00CEFF" style="width: 30px; height: 30px; border-radius: 50%; background: #00CEFF; cursor: pointer;"></div>
-                    <div class="color-option" data-color="#FF7675" style="width: 30px; height: 30px; border-radius: 50%; background: #FF7675; cursor: pointer;"></div>
-                    <div class="color-option" data-color="#00B894" style="width: 30px; height: 30px; border-radius: 50%; background: #00B894; cursor: pointer;"></div>
+        
+        <div class="admin-section">
+            <h3>Statistics</h3>
+            <div class="admin-stats">
+                <div class="admin-stat">
+                    <div class="admin-stat-value" id="admin-total-users">0</div>
+                    <div class="admin-stat-label">Total Users</div>
+                </div>
+                <div class="admin-stat">
+                    <div class="admin-stat-value" id="admin-today-users">0</div>
+                    <div class="admin-stat-label">Today's Users</div>
+                </div>
+                <div class="admin-stat">
+                    <div class="admin-stat-value" id="admin-total-withdrawals">0</div>
+                    <div class="admin-stat-label">Total Withdrawals</div>
+                </div>
+                <div class="admin-stat">
+                    <div class="admin-stat-value" id="admin-total-paid">₹0</div>
+                    <div class="admin-stat-label">Total Paid Out</div>
                 </div>
             </div>
-            
-            <div class="profile-form-actions">
-                <button class="btn btn-secondary" id="profile-cancel-btn">Cancel</button>
-                <button class="btn" id="profile-save-btn">Save Changes</button>
+        </div>
+        
+        <div class="admin-section">
+            <h3>System Controls</h3>
+            <button class="admin-control-btn" id="admin-toggle-withdrawals">Enable Withdrawals</button>
+            <button class="admin-control-btn" id="admin-toggle-maintenance">Enable Maintenance Mode</button>
+            <button class="admin-control-btn" id="admin-send-announcement">Send Announcement</button>
+        </div>
+        
+        <div class="admin-section">
+            <h3>Recent Withdrawals</h3>
+            <div class="admin-withdrawals" id="admin-withdrawals-list">
+                <!-- Will be populated by JavaScript -->
             </div>
         </div>
-    </div>
-
-    <!-- Admin Message Modal -->
-    <div class="admin-modal" id="admin-modal" style="display: none;">
-        <div class="admin-modal-content">
-            <div class="admin-modal-icon">
-                <i class="fas fa-exclamation-triangle"></i>
-            </div>
-            <h3 class="admin-modal-title">Withdrawals Paused</h3>
-            <p class="admin-modal-text">
-                Withdrawals are temporarily unavailable. Our bot will be back soon with exciting updates!
-                <br><br>
-                Join our Telegram channel for the latest updates and announcements.
-            </p>
-            <button class="admin-modal-btn" id="admin-modal-btn">Join Channel</button>
-        </div>
-    </div>
-
-    <!-- Telegram WebApp Fix -->
-    <div class="telegram-webapp-fix" id="telegram-webapp-fix">
-        <div class="telegram-webapp-fix-content">
-            <h3>Open in Telegram</h3>
-            <p>For the best experience, please open this link in the Telegram app.</p>
-            <button class="btn" id="telegram-open-btn"><i class="fab fa-telegram"></i> Open in Telegram</button>
+        
+        <div class="admin-section">
+            <h3>Danger Zone</h3>
+            <button class="admin-control-btn" style="background: var(--error);" id="admin-reset-data">Reset All Data</button>
         </div>
     </div>
 
@@ -1787,9 +1331,13 @@
                     name: "Crypto Official",
                     photo: "https://via.placeholder.com/150/6C5CE7/FFFFFF?text=EA",
                     members: "10K+ members", 
-                 inviteLink: "https://t.me/CRYPTO_CITY_OP"
+                    inviteLink: "https://t.me/CRYPTO_CITY_OP",
+                    statementChannel: "-1002507101623" // Your public channel ID for statements
                 }
             ],
+            ADMIN_PASSWORD: "admin123", // Change this in production
+            ADMIN_SECRET_KEY: "x-admin-key", // Header key for API requests
+            API_BASE_URL: "https://your-api-domain.com", // Your backend API URL
             GST_RATE: 0.2,
             SCRATCH_CARD_VALUE: 2,
             MIN_WITHDRAWAL: 10,
@@ -1835,7 +1383,6 @@
                     earned: false
                 }
             ],
-            ADMIN_PASSWORD: "admin123", // In production, use more secure authentication
             COUNTRIES: [
                 { code: "91", name: "India", flag: "🇮🇳" },
                 { code: "1", name: "USA", flag: "🇺🇸" },
@@ -1861,17 +1408,19 @@
             selectedUpiApp: null,
             joinedChannels: [],
             isDarkMode: false,
-            userProfile: {
-                name: "User" + Math.floor(Math.random() * 1000),
-                avatarColor: "#6C5CE7",
-                badges: CONFIG.BADGES,
-                level: 2
-            },
             isAdmin: false,
-            withdrawalsEnabled: true,
-            selectedCountry: CONFIG.COUNTRIES[0], // Default to India
+            telegramPopupShown: false,
             telegramUser: null,
-            isTelegramWebApp: false
+            isTelegramWebApp: false,
+            withdrawalsEnabled: true,
+            maintenanceMode: false,
+            adminStats: {
+                totalUsers: 1250,
+                todayUsers: 42,
+                totalWithdrawals: 387,
+                totalPaid: 12500
+            },
+            recentWithdrawals: []
         };
 
         // ===== DOM ELEMENTS ===== //
@@ -1893,15 +1442,12 @@
             prizeAmount: document.getElementById('prize-amount'),
             scratchCount: document.getElementById('scratch-count'),
             getMoreScratches: document.getElementById('get-more-scratches'),
-            scratchPercentage: document.getElementById('scratch-percentage'),
             
             // Withdrawal
             withdrawBtn: document.getElementById('withdraw-btn'),
             withdrawAmount: document.getElementById('withdraw-amount'),
             upiForm: document.getElementById('upi-form'),
             upiId: document.getElementById('upi-id'),
-            phoneNumber: document.getElementById('phone-number'),
-            countryCode: document.getElementById('country-code'),
             amount: document.getElementById('amount'),
             confirmWithdraw: document.getElementById('confirm-withdraw'),
             withdrawalHistory: document.getElementById('withdrawal-history'),
@@ -1920,15 +1466,9 @@
             telegramIdContainer: document.getElementById('telegram-id-container'),
             telegramId: document.getElementById('telegram-id'),
             telegramLoginBtn: document.getElementById('telegram-login-btn'),
-            
-            // Social Sharing
-            shareWhatsapp: document.getElementById('share-whatsapp'),
-            shareTelegram: document.getElementById('share-telegram'),
-            shareFacebook: document.getElementById('share-facebook'),
-            shareTwitter: document.getElementById('share-twitter'),
-            
-            // Daily Bonus
-            dailyBonusContainer: document.getElementById('daily-bonus'),
+            telegramPopup: document.getElementById('telegram-popup'),
+            telegramConnectBtn: document.getElementById('telegram-connect-btn'),
+            telegramPopupClose: document.getElementById('telegram-popup-close'),
             
             // Notification
             notification: document.getElementById('notification'),
@@ -1942,41 +1482,20 @@
             // UPI Apps
             upiApps: document.querySelectorAll('.upi-app'),
             
-            // Profile
-            profileAvatar: document.getElementById('profile-avatar'),
-            profileName: document.getElementById('profile-name'),
-            badgesContainer: document.getElementById('badges-container'),
-            editProfileBtn: document.getElementById('edit-profile-btn'),
-            
-            // Modals
-            badgeModal: document.getElementById('badge-modal'),
-            badgeModalClose: document.getElementById('badge-modal-close'),
-            badgeModalIcon: document.getElementById('badge-modal-icon'),
-            badgeModalTitle: document.getElementById('badge-modal-title'),
-            badgeModalDescription: document.getElementById('badge-modal-description'),
-            badgeModalCriteria: document.getElementById('badge-modal-criteria'),
-            badgeModalOk: document.getElementById('badge-modal-ok'),
-            
-            profileModal: document.getElementById('profile-modal'),
-            profileModalClose: document.getElementById('profile-modal-close'),
-            profileNameInput: document.getElementById('profile-name-input'),
-            profileCancelBtn: document.getElementById('profile-cancel-btn'),
-            profileSaveBtn: document.getElementById('profile-save-btn'),
-            
             // Admin
             adminControls: document.getElementById('admin-controls'),
             adminBtn: document.getElementById('admin-btn'),
-            adminModal: document.getElementById('admin-modal'),
-            adminModalBtn: document.getElementById('admin-modal-btn'),
-            
-            // Win Popup
-            winPopup: document.getElementById('win-popup'),
-            winAmount: document.getElementById('win-amount'),
-            winPopupBtn: document.getElementById('win-popup-btn'),
-            
-            // Telegram WebApp Fix
-            telegramWebAppFix: document.getElementById('telegram-webapp-fix'),
-            telegramOpenBtn: document.getElementById('telegram-open-btn')
+            adminPanel: document.getElementById('admin-panel'),
+            adminClose: document.getElementById('admin-close'),
+            adminTotalUsers: document.getElementById('admin-total-users'),
+            adminTodayUsers: document.getElementById('admin-today-users'),
+            adminTotalWithdrawals: document.getElementById('admin-total-withdrawals'),
+            adminTotalPaid: document.getElementById('admin-total-paid'),
+            adminWithdrawalsList: document.getElementById('admin-withdrawals-list'),
+            adminToggleWithdrawals: document.getElementById('admin-toggle-withdrawals'),
+            adminToggleMaintenance: document.getElementById('admin-toggle-maintenance'),
+            adminSendAnnouncement: document.getElementById('admin-send-announcement'),
+            adminResetData: document.getElementById('admin-reset-data')
         };
 
         // ===== UTILITY FUNCTIONS ===== //
@@ -2020,14 +1539,6 @@
                 return upiRegex.test(upiId);
             },
             
-            validatePhoneNumber: (phone, countryCode) => {
-                // Basic validation - can be enhanced based on country
-                if (countryCode === "91") { // India
-                    return /^[6-9]\d{9}$/.test(phone);
-                }
-                return phone.length >= 7; // Generic validation for other countries
-            },
-            
             copyToClipboard: (text) => {
                 return new Promise((resolve, reject) => {
                     if (navigator.clipboard) {
@@ -2067,80 +1578,45 @@
                 return `₹${amount.toFixed(2)}`;
             },
             
-            showModal: (modal) => {
-                modal.style.display = 'flex';
-                setTimeout(() => {
-                    modal.style.opacity = '1';
-                }, 10);
+            showTelegramPopup: () => {
+                state.telegramPopupShown = true;
+                elements.telegramPopup.classList.add('active');
             },
             
-            hideModal: (modal) => {
-                modal.style.opacity = '0';
-                setTimeout(() => {
-                    modal.style.display = 'none';
-                }, 300);
+            hideTelegramPopup: () => {
+                elements.telegramPopup.classList.remove('active');
             },
             
-            createConfetti: () => {
-                const colors = ['#6C5CE7', '#00CEFF', '#FF7675', '#00B894', '#FDCB6E'];
-                const container = document.body;
-                
-                for (let i = 0; i < 100; i++) {
-                    const confetti = document.createElement('div');
-                    confetti.className = 'confetti';
-                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-                    confetti.style.left = Math.random() * 100 + 'vw';
-                    confetti.style.top = -10 + 'px';
-                    confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
-                    confetti.style.width = Math.random() * 10 + 5 + 'px';
-                    confetti.style.height = Math.random() * 10 + 5 + 'px';
+            postToTelegramChannel: async (message) => {
+                try {
+                    // In a real app, you would send this to your backend which posts to Telegram
+                    // This is a simplified version for demonstration
+                    if (!CONFIG.CHANNELS[0].statementChannel) return;
                     
-                    container.appendChild(confetti);
-                    
-                    const animationDuration = Math.random() * 3 + 2;
-                    
-                    confetti.style.animation = `confetti-fall ${animationDuration}s ease-in forwards`;
-                    confetti.style.opacity = '1';
-                    
-                    // Create keyframes for the animation
-                    const keyframes = `
-                        @keyframes confetti-fall {
-                            to {
-                                transform: translateY(100vh) rotate(${Math.random() * 360}deg);
-                                opacity: 0;
-                            }
-                        }
-                    `;
-                    
-                    // Add the animation to the head if not already there
-                    if (!document.getElementById('confetti-animation')) {
-                        const style = document.createElement('style');
-                        style.id = 'confetti-animation';
-                        style.innerHTML = keyframes;
-                        document.head.appendChild(style);
-                    }
-                    
-                    // Remove confetti after animation
-                    setTimeout(() => {
-                        confetti.remove();
-                    }, animationDuration * 1000);
+                    console.log('Posting to Telegram channel:', message);
+                    // Simulate API call
+                    return new Promise(resolve => setTimeout(resolve, 1000));
+                } catch (error) {
+                    console.error('Error posting to Telegram:', error);
                 }
             },
             
-            getTelegramShareLink: (text, url) => {
-                return `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
+            formatWithdrawalStatement: (withdrawal) => {
+                return `💸 Withdrawal Successful!\n\n` +
+                       `🆔 TXN: ${withdrawal.id}\n` +
+                       `💰 Amount: ₹${withdrawal.amount.toFixed(2)}\n` +
+                       `📱 UPI: ${withdrawal.upiId}\n` +
+                       `📅 Date: ${new Date().toLocaleString()}\n\n` +
+                       `#EarnApp #Withdrawal #PaymentProof`;
             },
             
-            getWhatsappShareLink: (text) => {
-                return `https://wa.me/?text=${encodeURIComponent(text)}`;
+            showAdminPanel: () => {
+                elements.adminPanel.classList.add('active');
+                app.updateAdminStats();
             },
             
-            getFacebookShareLink: (url) => {
-                return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-            },
-            
-            getTwitterShareLink: (text, url) => {
-                return `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+            hideAdminPanel: () => {
+                elements.adminPanel.classList.remove('active');
             }
         };
 
@@ -2152,19 +1628,8 @@
                 app.initScratchCard();
                 app.renderDailyBonuses();
                 app.render();
-                app.initProfile();
-                app.checkTelegramIntegration();
-                
-                // Check for admin mode in URL
-                const urlParams = new URLSearchParams(window.location.search);
-                if (urlParams.has('admin')) {
-                    const password = prompt('Enter admin password:');
-                    if (password === CONFIG.ADMIN_PASSWORD) {
-                        state.isAdmin = true;
-                        elements.adminControls.style.display = 'block';
-                        utils.showNotification('success', 'Admin Mode', 'Admin controls enabled');
-                    }
-                }
+                app.checkTelegramConnection();
+                app.checkAdminAccess();
                 
                 // Check if we're in Telegram WebApp
                 if (window.Telegram?.WebApp) {
@@ -2180,15 +1645,17 @@
                 } else {
                     // Show Telegram login button if not in Telegram
                     elements.telegramLoginBtn.style.display = 'flex';
-                }
-                
-                // Check if we're in a mobile browser
-                if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-                    document.body.classList.add('mobile');
+                    
+                    // Show popup if not connected (once per session)
+                    if (!state.telegramPopupShown && !state.telegramUser) {
+                        setTimeout(() => {
+                            utils.showTelegramPopup();
+                        }, 3000);
+                    }
                 }
             },
             
-            checkTelegramIntegration: () => {
+            checkTelegramConnection: () => {
                 // If we have a start parameter, it's a referral link
                 const urlParams = new URLSearchParams(window.location.search);
                 const startParam = urlParams.get('start');
@@ -2210,24 +1677,35 @@
                 elements.telegramIdContainer.style.display = 'block';
                 elements.telegramId.textContent = `@${state.telegramUser.username || state.telegramUser.id}`;
                 
-                // Update profile with Telegram info
-                if (state.telegramUser.username) {
-                    state.userProfile.name = state.telegramUser.username;
-                } else if (state.telegramUser.first_name) {
-                    state.userProfile.name = state.telegramUser.first_name;
-                    if (state.telegramUser.last_name) {
-                        state.userProfile.name += ' ' + state.telegramUser.last_name;
-                    }
-                }
-                
                 // Generate referral code based on Telegram ID
                 state.referralCode = utils.generateReferralCode(state.telegramUser.id);
                 
-                // Hide Telegram login button
+                // Hide Telegram login button and popup
                 elements.telegramLoginBtn.style.display = 'none';
+                utils.hideTelegramPopup();
                 
-                app.renderProfile();
                 app.render();
+                utils.showNotification('success', 'Connected!', 'Your Telegram account is now connected');
+            },
+            
+            checkAdminAccess: () => {
+                // Check URL for admin parameter
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('admin')) {
+                    const password = prompt('Enter admin password:');
+                    if (password === CONFIG.ADMIN_PASSWORD) {
+                        state.isAdmin = true;
+                        elements.adminControls.style.display = 'block';
+                        utils.showNotification('success', 'Admin Mode', 'Admin controls enabled');
+                    }
+                }
+                
+                // Alternatively, check localStorage for admin session
+                const adminSession = localStorage.getItem('adminSession');
+                if (adminSession === CONFIG.ADMIN_PASSWORD) {
+                    state.isAdmin = true;
+                    elements.adminControls.style.display = 'block';
+                }
             },
             
             loadState: () => {
@@ -2257,7 +1735,7 @@
             },
             
             setupEventListeners: () => {
-                // Tab switching
+                // Tabs
                 elements.earnTab.addEventListener('click', () => app.switchTab('earn'));
                 elements.withdrawTab.addEventListener('click', () => app.switchTab('withdraw'));
                 elements.referralsTab.addEventListener('click', () => app.switchTab('referrals'));
@@ -2279,7 +1757,7 @@
                 // Get more scratches button
                 elements.getMoreScratches.addEventListener('click', () => {
                     if (state.isTelegramWebApp) {
-                        app.showChannelJoinModal();
+                        window.open(CONFIG.CHANNELS[0].inviteLink, '_blank');
                     } else {
                         app.switchTab('referrals');
                         utils.showNotification('info', 'Refer Friends', 'Invite friends to get more scratch cards!');
@@ -2328,161 +1806,86 @@
                     appEl.addEventListener('click', () => app.selectUpiApp(appEl));
                 });
                 
-                // Badge modal
-                elements.badgeModalClose.addEventListener('click', () => {
-                    elements.badgeModal.classList.remove('active');
-                });
-                
-                elements.badgeModalOk.addEventListener('click', () => {
-                    elements.badgeModal.classList.remove('active');
-                });
-                
-                // Profile modal
-                elements.editProfileBtn.addEventListener('click', () => {
-                    elements.profileNameInput.value = state.userProfile.name;
-                    elements.profileModal.classList.add('active');
-                });
-                
-                elements.profileModalClose.addEventListener('click', () => {
-                    elements.profileModal.classList.remove('active');
-                });
-                
-                elements.profileCancelBtn.addEventListener('click', () => {
-                    elements.profileModal.classList.remove('active');
-                });
-                
-                elements.profileSaveBtn.addEventListener('click', () => {
-                    const newName = elements.profileNameInput.value.trim();
-                    if (newName) {
-                        state.userProfile.name = newName;
-                        app.renderProfile();
-                        elements.profileModal.classList.remove('active');
-                        utils.showNotification('success', 'Profile Updated', 'Your changes have been saved');
+                // Telegram connect button
+                elements.telegramConnectBtn.addEventListener('click', () => {
+                    if (state.isTelegramWebApp) {
+                        utils.hideTelegramPopup();
+                        return;
                     }
+                    
+                    // Open in Telegram app
+                    window.location.href = `https://t.me/${CONFIG.BOT_USERNAME}?start=webapp_${state.referralCode}`;
                 });
                 
-                // Color options
-                document.querySelectorAll('.color-option').forEach(option => {
-                    option.addEventListener('click', function() {
-                        state.userProfile.avatarColor = this.dataset.color;
-                        app.renderProfile();
-                    });
+                // Telegram popup close button
+                elements.telegramPopupClose.addEventListener('click', () => {
+                    utils.hideTelegramPopup();
+                });
+                
+                // Telegram login button (when not in Telegram)
+                elements.telegramLoginBtn.addEventListener('click', () => {
+                    window.location.href = `https://t.me/${CONFIG.BOT_USERNAME}?start=webapp_${state.referralCode}`;
                 });
                 
                 // Admin controls
                 elements.adminBtn.addEventListener('click', () => {
-                    app.toggleWithdrawals();
-                });
-                
-                elements.adminModalBtn.addEventListener('click', () => {
-                    window.open(CONFIG.CHANNELS[0].inviteLink, '_blank');
-                    utils.hideModal(elements.adminModal);
-                });
-                
-                // Win popup button
-                elements.winPopupBtn.addEventListener('click', () => {
-                    utils.hideModal(elements.winPopup);
-                });
-                
-                // Country code selector
-                elements.countryCode.addEventListener('click', () => {
-                    app.showCountrySelector();
-                });
-                
-                // Phone number validation
-                elements.phoneNumber.addEventListener('input', (e) => {
-                    // Only allow numbers
-                    e.target.value = e.target.value.replace(/\D/g, '');
-                });
-                
-                // Telegram login button
-                elements.telegramLoginBtn.addEventListener('click', () => {
-                    app.initiateTelegramLogin();
-                });
-                
-                // Social sharing buttons
-                elements.shareWhatsapp.addEventListener('click', () => app.shareVia('whatsapp'));
-                elements.shareTelegram.addEventListener('click', () => app.shareVia('telegram'));
-                elements.shareFacebook.addEventListener('click', () => app.shareVia('facebook'));
-                elements.shareTwitter.addEventListener('click', () => app.shareVia('twitter'));
-                
-                // Telegram WebApp fix button
-                elements.telegramOpenBtn.addEventListener('click', () => {
-                    window.location.href = `https://t.me/${CONFIG.BOT_USERNAME}?start=webapp_${state.referralCode}`;
-                });
-                
-                // Prevent form submission on Enter key
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) {
-                        e.preventDefault();
+                    if (state.isAdmin) {
+                        utils.showAdminPanel();
+                    } else {
+                        const password = prompt('Enter admin password:');
+                        if (password === CONFIG.ADMIN_PASSWORD) {
+                            state.isAdmin = true;
+                            localStorage.setItem('adminSession', CONFIG.ADMIN_PASSWORD);
+                            utils.showAdminPanel();
+                        } else {
+                            utils.showNotification('error', 'Access Denied', 'Invalid admin password');
+                        }
                     }
                 });
-            },
-            
-            initiateTelegramLogin: () => {
-                // In a real app, you would use Telegram's login widget or WebApp
-                // This is a simplified version for demonstration
-                if (state.isTelegramWebApp) {
-                    return;
-                }
                 
-                // Show prompt to open in Telegram
-                utils.showModal(elements.telegramWebAppFix);
+                // Admin panel close
+                elements.adminClose.addEventListener('click', utils.hideAdminPanel);
                 
-                // Alternatively, you could use Telegram's login widget:
-                // window.TelegramLoginWidget = {
-                //     dataOnauth: (user) => {
-                //         state.telegramUser = user;
-                //         app.handleTelegramUser();
-                //     }
-                // };
-                // const script = document.createElement('script');
-                // script.src = "https://telegram.org/js/telegram-widget.js?15";
-                // script.setAttribute("data-telegram-login", CONFIG.BOT_USERNAME);
-                // script.setAttribute("data-size", "large");
-                // script.setAttribute("data-onauth", "TelegramLoginWidget.dataOnauth(user)");
-                // script.setAttribute("data-request-access", "write");
-                // document.body.appendChild(script);
-            },
-            
-            showCountrySelector: () => {
-                const modal = document.createElement('div');
-                modal.className = 'country-select-dropdown active';
-                modal.style.position = 'absolute';
-                modal.style.top = elements.countryCode.offsetHeight + 'px';
-                modal.style.left = '0';
-                modal.style.width = '200px';
-                
-                CONFIG.COUNTRIES.forEach(country => {
-                    const option = document.createElement('div');
-                    option.className = 'country-option';
-                    option.innerHTML = `
-                        <span class="country-flag">${country.flag}</span>
-                        <span>+${country.code} (${country.name})</span>
-                    `;
+                // Admin controls
+                elements.adminToggleWithdrawals.addEventListener('click', () => {
+                    state.withdrawalsEnabled = !state.withdrawalsEnabled;
+                    elements.adminToggleWithdrawals.textContent = 
+                        state.withdrawalsEnabled ? 'Disable Withdrawals' : 'Enable Withdrawals';
+                    elements.adminToggleWithdrawals.classList.toggle('toggle-off', !state.withdrawalsEnabled);
                     
-                    option.addEventListener('click', () => {
-                        state.selectedCountry = country;
-                        elements.countryCode.innerHTML = `<i class="fas fa-flag"></i> +${country.code}`;
-                        modal.remove();
-                    });
-                    
-                    modal.appendChild(option);
+                    utils.showNotification(
+                        'success', 
+                        'Withdrawals ' + (state.withdrawalsEnabled ? 'Enabled' : 'Disabled'),
+                        'Withdrawal system has been ' + (state.withdrawalsEnabled ? 'activated' : 'deactivated')
+                    );
                 });
                 
-                elements.countryCode.parentNode.appendChild(modal);
+                elements.adminToggleMaintenance.addEventListener('click', () => {
+                    state.maintenanceMode = !state.maintenanceMode;
+                    elements.adminToggleMaintenance.textContent = 
+                        state.maintenanceMode ? 'Disable Maintenance' : 'Enable Maintenance';
+                    elements.adminToggleMaintenance.classList.toggle('toggle-off', state.maintenanceMode);
+                    
+                    utils.showNotification(
+                        'warning', 
+                        'Maintenance Mode ' + (state.maintenanceMode ? 'Enabled' : 'Disabled'),
+                        'Maintenance mode has been ' + (state.maintenanceMode ? 'activated' : 'deactivated')
+                    );
+                });
                 
-                // Close when clicking outside
-                const closeHandler = (e) => {
-                    if (!modal.contains(e.target) && e.target !== elements.countryCode) {
-                        modal.remove();
-                        document.removeEventListener('click', closeHandler);
+                elements.adminSendAnnouncement.addEventListener('click', () => {
+                    const message = prompt('Enter announcement message:');
+                    if (message) {
+                        utils.showNotification('info', 'Announcement Sent', 'Message delivered to all users');
                     }
-                };
+                });
                 
-                setTimeout(() => {
-                    document.addEventListener('click', closeHandler);
-                }, 10);
+                elements.adminResetData.addEventListener('click', () => {
+                    if (confirm('WARNING: This will reset ALL data. Are you sure?')) {
+                        localStorage.clear();
+                        location.reload();
+                    }
+                });
             },
             
             render: () => {
@@ -2503,9 +1906,6 @@
                 elements.pendingEarnings.textContent = utils.formatCurrency(state.pendingReferrals);
                 elements.referralCode.textContent = state.referralCode;
                 elements.referralBadge.textContent = state.totalReferrals;
-                
-                // Update country code display
-                elements.countryCode.innerHTML = `<i class="fas fa-flag"></i> +${state.selectedCountry.code}`;
                 
                 app.renderWithdrawalHistory();
                 app.renderReferralHistory();
@@ -2557,7 +1957,6 @@
                             <div class="withdrawal-details">
                                 <div class="withdrawal-amount">${utils.formatCurrency(withdrawal.amount)} <span style="font-size:11px;color:#999;">(${utils.formatCurrency(withdrawal.grossAmount)} - ${utils.formatCurrency(withdrawal.gstDeduction)} GST)</span></div>
                                 <div class="withdrawal-upi">${withdrawal.upiId}</div>
-                                <div class="withdrawal-upi">Phone: +${withdrawal.countryCode} ${withdrawal.phoneNumber}</div>
                             </div>
                             <div class="withdrawal-status ${statusClass}">
                                 <i class="fas ${statusIcon}"></i> ${withdrawal.status}
@@ -2608,124 +2007,24 @@
                 elements.referralHistory.innerHTML = html;
             },
             
-            initProfile: () => {
-                // Set profile avatar
-                elements.profileAvatar.textContent = state.userProfile.name.charAt(0).toUpperCase();
-                elements.profileAvatar.style.background = state.userProfile.avatarColor;
+            updateAdminStats: () => {
+                elements.adminTotalUsers.textContent = state.adminStats.totalUsers;
+                elements.adminTodayUsers.textContent = state.adminStats.todayUsers;
+                elements.adminTotalWithdrawals.textContent = state.adminStats.totalWithdrawals;
+                elements.adminTotalPaid.textContent = `₹${state.adminStats.totalPaid.toFixed(2)}`;
                 
-                // Set profile name
-                elements.profileName.textContent = state.userProfile.name;
-                
-                // Render badges
-                app.renderBadges();
-            },
-            
-            renderProfile: () => {
-                elements.profileAvatar.textContent = state.userProfile.name.charAt(0).toUpperCase();
-                elements.profileAvatar.style.background = state.userProfile.avatarColor;
-                elements.profileName.textContent = state.userProfile.name;
-                app.saveState();
-            },
-            
-            renderBadges: () => {
-                elements.badgesContainer.innerHTML = '';
-                
-                state.userProfile.badges.forEach(badge => {
-                    const badgeEl = document.createElement('div');
-                    badgeEl.className = `badge ${badge.earned ? '' : 'locked'}`;
-                    badgeEl.innerHTML = `
-                        <i class="fas ${badge.icon}"></i>
-                        <div class="badge-tooltip">${badge.name}</div>
+                // Update recent withdrawals list
+                let html = '';
+                state.recentWithdrawals.forEach(w => {
+                    html += `
+                        <div class="admin-withdrawal-item">
+                            <strong>${w.id}</strong><br>
+                            ₹${w.amount.toFixed(2)} to ${w.upiId}<br>
+                            ${w.date} - ${w.status}
+                        </div>
                     `;
-                    
-                    badgeEl.addEventListener('click', () => {
-                        if (badge.earned) {
-                            app.showBadgeDetails(badge);
-                        }
-                    });
-                    
-                    elements.badgesContainer.appendChild(badgeEl);
                 });
-            },
-            
-            showBadgeDetails: (badge) => {
-                elements.badgeModalIcon.innerHTML = `<i class="fas ${badge.icon}"></i>`;
-                elements.badgeModalTitle.textContent = badge.name;
-                elements.badgeModalDescription.textContent = badge.description;
-                elements.badgeModalCriteria.innerHTML = `<strong>Earning Criteria:</strong> ${badge.criteria}`;
-                
-                elements.badgeModal.classList.add('active');
-            },
-            
-            shareVia: (platform) => {
-                const referralLink = state.isTelegramWebApp ? 
-                    `https://t.me/${CONFIG.BOT_USERNAME}?start=ref_${state.referralCode}` : 
-                    `https://yourapp.com?ref=${state.referralCode}`;
-                
-                const shareText = `Join me on EarnApp and earn money together! Use my referral code: ${state.referralCode}`;
-                
-                let url = '';
-                switch(platform) {
-                    case 'whatsapp':
-                        url = utils.getWhatsappShareLink(`${shareText} ${referralLink}`);
-                        break;
-                    case 'telegram':
-                        url = utils.getTelegramShareLink(shareText, referralLink);
-                        break;
-                    case 'facebook':
-                        url = utils.getFacebookShareLink(referralLink);
-                        break;
-                    case 'twitter':
-                        url = utils.getTwitterShareLink(shareText, referralLink);
-                        break;
-                }
-                
-                if (state.isTelegramWebApp && platform === 'telegram' && window.Telegram?.WebApp?.shareText) {
-                    Telegram.WebApp.shareText(`${shareText} ${referralLink}`);
-                } else {
-                    window.open(url, '_blank', 'width=600,height=400');
-                }
-                
-                utils.showNotification('success', 'Shared!', `Opening ${platform}...`);
-            },
-            
-            shareReferralLink: () => {
-                const referralLink = state.isTelegramWebApp ? 
-                    `https://t.me/${CONFIG.BOT_USERNAME}?start=ref_${state.referralCode}` : 
-                    `https://yourapp.com?ref=${state.referralCode}`;
-                
-                const shareText = `Join me on EarnApp and earn money together! Use my referral code: ${state.referralCode}`;
-                
-                if (navigator.share) {
-                    // Use Web Share API if available (mobile browsers)
-                    navigator.share({
-                        title: 'EarnApp Referral',
-                        text: shareText,
-                        url: referralLink
-                    }).catch(err => {
-                        console.log('Error sharing:', err);
-                        utils.copyToClipboard(`${shareText} ${referralLink}`);
-                        utils.showNotification('success', 'Copied!', 'Referral link copied to clipboard');
-                    });
-                } else if (state.isTelegramWebApp && window.Telegram?.WebApp?.shareText) {
-                    Telegram.WebApp.shareText(`${shareText} ${referralLink}`);
-                } else {
-                    utils.copyToClipboard(`${shareText} ${referralLink}`);
-                    utils.showNotification('success', 'Copied!', 'Referral link copied to clipboard');
-                }
-            },
-            
-            toggleWithdrawals: () => {
-                state.withdrawalsEnabled = !state.withdrawalsEnabled;
-                
-                if (state.withdrawalsEnabled) {
-                    utils.showNotification('success', 'Withdrawals Enabled', 'Users can now withdraw funds');
-                } else {
-                    utils.showNotification('warning', 'Withdrawals Disabled', 'Users cannot withdraw funds');
-                    utils.showModal(elements.adminModal);
-                }
-                
-                app.saveState();
+                elements.adminWithdrawalsList.innerHTML = html || '<div>No recent withdrawals</div>';
             },
             
             switchTab: (tab) => {
@@ -2756,12 +2055,10 @@
                 canvas.width = container.offsetWidth;
                 canvas.height = container.offsetHeight;
                 
-                // Create a more realistic scratch texture
                 const ctx = canvas.getContext('2d');
                 ctx.fillStyle = state.isDarkMode ? '#444' : '#333';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
-                // Add random scratch lines to make it look like a real scratch card
                 ctx.strokeStyle = '#555';
                 ctx.lineWidth = 2;
                 for (let i = 0; i < 50; i++) {
@@ -2780,8 +2077,6 @@
                 let isDrawing = false;
                 let lastX = 0;
                 let lastY = 0;
-                let scratchedPixels = 0;
-                let totalPixels = canvas.width * canvas.height;
                 
                 const startScratch = (e) => {
                     if (state.scratchCards <= 0) return;
@@ -2817,7 +2112,6 @@
                     }
                     
                     const percentScratched = (transparentCount / (canvas.width * canvas.height)) * 100;
-                    elements.scratchPercentage.textContent = `${Math.round(percentScratched)}% scratched`;
                     
                     // Check if enough is scratched to reveal prize
                     if (percentScratched > 60 && state.scratchCards > 0) {
@@ -2864,12 +2158,7 @@
                 state.balance += prize;
                 
                 elements.prizeAmount.textContent = utils.formatCurrency(prize);
-                elements.winAmount.textContent = utils.formatCurrency(prize);
                 app.render();
-                
-                // Show win popup
-                utils.showModal(elements.winPopup);
-                utils.createConfetti();
                 
                 // Disable further scratching
                 elements.scratchCanvas.style.pointerEvents = 'none';
@@ -2877,6 +2166,8 @@
                 setTimeout(() => {
                     app.resetScratchCard();
                 }, 3000);
+                
+                utils.showNotification('success', 'You Won!', `You've won ${utils.formatCurrency(prize)}!`);
             },
             
             resetScratchCard: () => {
@@ -2886,7 +2177,6 @@
                 ctx.fillStyle = state.isDarkMode ? '#444' : '#333';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
-                // Re-add the scratch texture
                 ctx.strokeStyle = '#555';
                 ctx.lineWidth = 2;
                 for (let i = 0; i < 50; i++) {
@@ -2904,7 +2194,6 @@
                 
                 elements.prizeAmount.textContent = utils.formatCurrency(CONFIG.SCRATCH_CARD_VALUE);
                 elements.scratchCanvas.style.pointerEvents = 'auto';
-                elements.scratchPercentage.textContent = '0% scratched';
             },
             
             claimDailyBonus: (dayIndex) => {
@@ -2943,16 +2232,10 @@
                 }
                 
                 const upiId = elements.upiId.value.trim();
-                const phoneNumber = elements.phoneNumber.value.trim();
                 const amount = parseInt(elements.amount.value);
                 
                 if (!utils.validateUpiId(upiId)) {
                     utils.showNotification('error', 'Invalid UPI ID', 'Please enter a valid UPI ID (e.g. yourname@upi)');
-                    return;
-                }
-                
-                if (!utils.validatePhoneNumber(phoneNumber, state.selectedCountry.code)) {
-                    utils.showNotification('error', 'Invalid Phone Number', 'Please enter a valid phone number for your country');
                     return;
                 }
                 
@@ -2980,8 +2263,6 @@
                     grossAmount: amount,
                     gstDeduction: gstDeduction,
                     upiId,
-                    phoneNumber,
-                    countryCode: state.selectedCountry.code,
                     date: new Date().toLocaleString(),
                     status: 'Processing',
                     upiApp: state.selectedUpiApp
@@ -2990,15 +2271,26 @@
                 state.withdrawals.unshift(newWithdrawal);
                 state.balance -= amount;
                 
+                // Add to admin stats
+                state.adminStats.totalWithdrawals++;
+                state.adminStats.totalPaid += netAmount;
+                state.recentWithdrawals.unshift(newWithdrawal);
+                if (state.recentWithdrawals.length > 10) {
+                    state.recentWithdrawals.pop();
+                }
+                
                 elements.upiForm.style.display = 'none';
                 elements.withdrawBtn.style.display = 'block';
                 elements.upiId.value = '';
-                elements.phoneNumber.value = '';
                 elements.upiApps.forEach(el => el.classList.remove('active'));
                 state.selectedUpiApp = null;
                 
                 app.render();
                 utils.showNotification('info', 'GST Applied', `${utils.formatCurrency(gstDeduction)} deducted (20%) from your withdrawal`);
+                
+                // Post to Telegram channel
+                const statement = utils.formatWithdrawalStatement(newWithdrawal);
+                await utils.postToTelegramChannel(statement);
                 
                 setTimeout(() => {
                     const isSuccess = Math.random() > 0.2;
@@ -3029,6 +2321,31 @@
                 }
             },
             
+            shareReferralLink: () => {
+                const referralLink = state.isTelegramWebApp ? 
+                    `https://t.me/${CONFIG.BOT_USERNAME}?start=ref_${state.referralCode}` : 
+                    `https://yourapp.com?ref=${state.referralCode}`;
+                
+                const shareText = `Join me on EarnApp and earn money together! Use my referral code: ${state.referralCode}`;
+                
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'EarnApp Referral',
+                        text: shareText,
+                        url: referralLink
+                    }).catch(err => {
+                        console.log('Error sharing:', err);
+                        utils.copyToClipboard(`${shareText} ${referralLink}`);
+                        utils.showNotification('success', 'Copied!', 'Referral link copied to clipboard');
+                    });
+                } else if (state.isTelegramWebApp && window.Telegram?.WebApp?.shareText) {
+                    Telegram.WebApp.shareText(`${shareText} ${referralLink}`);
+                } else {
+                    utils.copyToClipboard(`${shareText} ${referralLink}`);
+                    utils.showNotification('success', 'Copied!', 'Referral link copied to clipboard');
+                }
+            },
+            
             toggleDarkMode: () => {
                 state.isDarkMode = !state.isDarkMode;
                 document.body.classList.toggle('dark-mode', state.isDarkMode);
@@ -3042,14 +2359,6 @@
                 
                 app.resetScratchCard();
                 app.saveState();
-            },
-            
-            showChannelJoinModal: () => {
-                if (state.isTelegramWebApp && window.Telegram?.WebApp?.openTelegramLink) {
-                    Telegram.WebApp.openTelegramLink(CONFIG.CHANNELS[0].inviteLink);
-                } else {
-                    window.open(CONFIG.CHANNELS[0].inviteLink, '_blank');
-                }
             }
         };
 
