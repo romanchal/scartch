@@ -1628,6 +1628,76 @@
             cursor: pointer;
             white-space: nowrap;
         }
+
+        /* Withdrawal Mini Statement */
+        .mini-statement {
+            margin-top: 20px;
+            background: var(--light);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .statement-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .statement-title i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+        
+        .statement-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .statement-date {
+            font-size: 12px;
+            color: #636E72;
+        }
+        
+        .statement-amount {
+            font-weight: 600;
+        }
+        
+        .statement-status {
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+        
+        /* Mobile Chrome specific fixes */
+        @media screen and (-webkit-min-device-pixel-ratio:0) and (max-width: 480px) {
+            input, textarea, select {
+                font-size: 16px !important;
+                transform: scale(0.98) !important;
+                transform-origin: left top;
+            }
+            
+            .form-group input {
+                padding: 12px 15px !important;
+            }
+            
+            .phone-input-group {
+                transform: scale(0.98);
+                transform-origin: left top;
+            }
+        }
+        
+        /* Telegram WebApp specific fixes */
+        .telegram-webapp .app-container {
+            max-height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .telegram-webapp .app-content {
+            padding-bottom: 70px;
+        }
     </style>
 </head>
 <body>
@@ -1751,6 +1821,22 @@
                         <div class="empty-state">
                             <i class="fas fa-clock"></i>
                             <p>No withdrawals yet</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mini Statement -->
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-file-invoice"></i> Mini Statement</h3>
+                    <div class="mini-statement" id="mini-statement">
+                        <div class="statement-title">
+                            <i class="fas fa-list"></i> Recent Transactions
+                        </div>
+                        <div id="statement-items">
+                            <div class="empty-state">
+                                <i class="fas fa-clock"></i>
+                                <p>No transactions yet</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2032,7 +2118,8 @@
             REQUIRE_CHANNEL_JOIN: true, // Set to true to force channel join
             CHANNEL_CHECK_INTERVAL: 3600000, // 1 hour in ms
             REFERRAL_COOKIE_DAYS: 30, // Cookie expiration in days
-            COOKIE_NAME: 'earnapp_ref'
+            COOKIE_NAME: 'earnapp_ref',
+            API_BASE_URL: "https://your-api-endpoint.com/api/v1" // Added API base URL
         };
 
         // ===== STATE MANAGEMENT ===== //
@@ -2065,7 +2152,9 @@
             hasJoinedChannel: false,
             channelJoinRequired: CONFIG.REQUIRE_CHANNEL_JOIN,
             referralSource: null,
-            cookiesEnabled: false
+            cookiesEnabled: false,
+            authToken: null,
+            isMobileChrome: /Chrome/.test(navigator.userAgent) && /Mobile/.test(navigator.userAgent)
         };
 
         // ===== DOM ELEMENTS ===== //
@@ -2182,7 +2271,10 @@
             
             // Cookie Consent
             cookieConsent: document.getElementById('cookie-consent'),
-            cookieAcceptBtn: document.getElementById('cookie-accept-btn')
+            cookieAcceptBtn: document.getElementById('cookie-accept-btn'),
+            
+            // Mini Statement
+            statementItems: document.getElementById('statement-items')
         };
 
         // ===== UTILITY FUNCTIONS ===== //
@@ -2413,6 +2505,129 @@
             getReferralData: (refCode) => {
                 const referrals = JSON.parse(localStorage.getItem('referral_tracking') || '{}');
                 return referrals[refCode] || null;
+            },
+            
+            // API Request Helper
+            apiRequest: async (endpoint, method = 'GET', data = null) => {
+                const headers = {
+                    'Content-Type': 'application/json'
+                };
+                
+                if (state.authToken) {
+                    headers['Authorization'] = `Bearer ${state.authToken}`;
+                }
+                
+                const config = {
+                    method: method,
+                    headers: headers
+                };
+                
+                if (data) {
+                    config.body = JSON.stringify(data);
+                }
+                
+                try {
+                    const response = await fetch(`${CONFIG.API_BASE_URL}${endpoint}`, config);
+                    
+                    if (!response.ok) {
+                        throw new Error(`API request failed: ${response.status}`);
+                    }
+                    
+                    return await response.json();
+                } catch (error) {
+                    console.error('API request error:', error);
+                    throw error;
+                }
+            }
+        };
+
+        // ===== API ENDPOINTS ===== //
+        const api = {
+            // Telegram Channel Verification Endpoint
+            verifyChannelJoin: async (userId, channelId) => {
+                try {
+                    const response = await utils.apiRequest(
+                        '/telegram/verify-channel', 
+                        'POST', 
+                        { userId, channelId }
+                    );
+                    return response.joined;
+                } catch (error) {
+                    console.error('Failed to verify channel join:', error);
+                    return false;
+                }
+            },
+            
+            // Referral Tracking Endpoint
+            trackReferral: async (referrerId, refereeId, source) => {
+                try {
+                    const response = await utils.apiRequest(
+                        '/referrals/track',
+                        'POST',
+                        { referrerId, refereeId, source }
+                    );
+                    return response.success;
+                } catch (error) {
+                    console.error('Failed to track referral:', error);
+                    return false;
+                }
+            },
+            
+            // Admin Authentication Endpoint
+            adminLogin: async (username, password) => {
+                try {
+                    const response = await utils.apiRequest(
+                        '/admin/login',
+                        'POST',
+                        { username, password }
+                    );
+                    
+                    if (response.token) {
+                        state.authToken = response.token;
+                        state.isAdmin = true;
+                        return true;
+                    }
+                    return false;
+                } catch (error) {
+                    console.error('Admin login failed:', error);
+                    return false;
+                }
+            },
+            
+            // Withdrawal Processing Endpoint
+            processWithdrawal: async (userId, upiId, amount, phoneNumber, countryCode) => {
+                try {
+                    const response = await utils.apiRequest(
+                        '/withdrawals/process',
+                        'POST',
+                        { 
+                            userId, 
+                            upiId, 
+                            amount, 
+                            phoneNumber, 
+                            countryCode,
+                            currency: 'INR'
+                        }
+                    );
+                    return response;
+                } catch (error) {
+                    console.error('Withdrawal processing failed:', error);
+                    throw error;
+                }
+            },
+            
+            // Get Mini Statement
+            getMiniStatement: async (userId) => {
+                try {
+                    const response = await utils.apiRequest(
+                        `/users/${userId}/statement`,
+                        'GET'
+                    );
+                    return response.transactions || [];
+                } catch (error) {
+                    console.error('Failed to get mini statement:', error);
+                    return [];
+                }
             }
         };
 
@@ -2441,6 +2656,7 @@
                 // Check if we're in Telegram WebApp
                 if (window.Telegram?.WebApp) {
                     state.isTelegramWebApp = true;
+                    document.body.classList.add('telegram-webapp');
                     Telegram.WebApp.expand();
                     Telegram.WebApp.enableClosingConfirmation();
                     
@@ -2473,6 +2689,11 @@
                 // Android optimizations
                 if (utils.isAndroid()) {
                     document.body.classList.add('android');
+                }
+                
+                // Mobile Chrome specific fixes
+                if (state.isMobileChrome) {
+                    document.body.classList.add('mobile-chrome');
                 }
             },
             
@@ -2508,6 +2729,11 @@
                 if (refParam && refParam.startsWith('ref_')) {
                     const refCode = refParam.replace('ref_', '');
                     utils.trackReferral(refCode);
+                    
+                    // Track referral on server
+                    if (state.telegramUser) {
+                        api.trackReferral(refCode, state.telegramUser.id, 'telegram');
+                    }
                     return;
                 }
                 
@@ -2518,6 +2744,11 @@
                     
                     // Update last seen time
                     utils.trackReferral(cookieRef);
+                    
+                    // Track referral on server
+                    if (state.telegramUser) {
+                        api.trackReferral(cookieRef, state.telegramUser.id, 'cookie');
+                    }
                 }
             },
             
@@ -2635,6 +2866,58 @@
                 
                 app.renderProfile();
                 app.render();
+                
+                // Verify channel membership if required
+                if (state.channelJoinRequired && state.telegramUser) {
+                    api.verifyChannelJoin(state.telegramUser.id, CONFIG.CHANNELS[0].id)
+                        .then(joined => {
+                            state.hasJoinedChannel = joined;
+                            if (!joined) {
+                                app.showChannelJoinModal();
+                            }
+                        });
+                }
+                
+                // Load mini statement
+                app.loadMiniStatement();
+            },
+            
+            loadMiniStatement: async () => {
+                if (!state.telegramUser) return;
+                
+                try {
+                    const transactions = await api.getMiniStatement(state.telegramUser.id);
+                    if (transactions.length > 0) {
+                        app.renderMiniStatement(transactions);
+                    }
+                } catch (error) {
+                    console.error('Failed to load mini statement:', error);
+                }
+            },
+            
+            renderMiniStatement: (transactions) => {
+                let html = '';
+                transactions.slice(0, 5).forEach(transaction => {
+                    const date = new Date(transaction.date).toLocaleDateString();
+                    const amount = utils.formatCurrency(transaction.amount);
+                    const statusClass = transaction.status === 'completed' ? 'status-success' : 
+                                        transaction.status === 'failed' ? 'status-failed' : 'status-processing';
+                    
+                    html += `
+                        <div class="statement-item">
+                            <div>
+                                <div>${transaction.description || 'Withdrawal'}</div>
+                                <div class="statement-date">${date}</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div class="statement-amount">${amount}</div>
+                                <div class="statement-status ${statusClass}">${transaction.status}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                elements.statementItems.innerHTML = html;
             },
             
             loadState: () => {
@@ -3414,23 +3697,56 @@
                 app.render();
                 utils.showNotification('info', 'GST Applied', `${utils.formatCurrency(gstDeduction)} deducted (20%) from your withdrawal`);
                 
-                setTimeout(() => {
-                    const isSuccess = Math.random() > 0.2;
-                    const withdrawal = state.withdrawals.find(w => w.id === withdrawalId);
-                    
-                    if (isSuccess) {
-                        withdrawal.status = 'Success';
-                        utils.showNotification('success', 'Withdrawal Successful', `${utils.formatCurrency(netAmount)} has been transferred to your UPI`);
-                    } else {
+                // Process withdrawal via API if we have a user
+                if (state.telegramUser) {
+                    try {
+                        const response = await api.processWithdrawal(
+                            state.telegramUser.id,
+                            upiId,
+                            amount,
+                            phoneNumber,
+                            state.selectedCountry.code
+                        );
+                        
+                        const withdrawal = state.withdrawals.find(w => w.id === withdrawalId);
+                        
+                        if (response.success) {
+                            withdrawal.status = 'Success';
+                            utils.showNotification('success', 'Withdrawal Successful', `${utils.formatCurrency(netAmount)} has been transferred to your UPI`);
+                        } else {
+                            withdrawal.status = 'Failed';
+                            state.balance += amount;
+                            utils.showNotification('error', 'Withdrawal Failed', response.message || 'Please try again or use different UPI ID');
+                        }
+                        
+                        // Reload mini statement
+                        app.loadMiniStatement();
+                    } catch (error) {
+                        const withdrawal = state.withdrawals.find(w => w.id === withdrawalId);
                         withdrawal.status = 'Failed';
                         state.balance += amount;
-                        utils.showNotification('error', 'Withdrawal Failed', 'Please try again or use different UPI ID');
+                        utils.showNotification('error', 'Withdrawal Failed', 'Please try again later');
                     }
-                    
-                    elements.confirmWithdraw.innerHTML = originalText;
-                    elements.confirmWithdraw.disabled = false;
-                    app.render();
-                }, 3000);
+                } else {
+                    // Simulate API response for demo
+                    setTimeout(() => {
+                        const isSuccess = Math.random() > 0.2;
+                        const withdrawal = state.withdrawals.find(w => w.id === withdrawalId);
+                        
+                        if (isSuccess) {
+                            withdrawal.status = 'Success';
+                            utils.showNotification('success', 'Withdrawal Successful', `${utils.formatCurrency(netAmount)} has been transferred to your UPI`);
+                        } else {
+                            withdrawal.status = 'Failed';
+                            state.balance += amount;
+                            utils.showNotification('error', 'Withdrawal Failed', 'Please try again or use different UPI ID');
+                        }
+                    }, 3000);
+                }
+                
+                elements.confirmWithdraw.innerHTML = originalText;
+                elements.confirmWithdraw.disabled = false;
+                app.render();
             },
             
             copyReferralCode: async () => {
